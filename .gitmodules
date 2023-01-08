@@ -1,0 +1,3 @@
+[submodule "VibrationLabeler"]
+	path = VibrationLabeler
+	url = https://github.com/goolu0623/VibrationLabeler.git
