@@ -1,0 +1,206 @@
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe.config
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.pdb
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.pdb
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe.config
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.AssemblyReference.cache
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CoreCompileInputs.cache
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CopyComplete
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.exe
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.pdb
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\DequeNet.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.AppContext.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Console.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Globalization.Calendars.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Http.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Sockets.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\DW\HCI\crosshaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.AssemblyReference.cache
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CoreCompileInputs.cache
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.exe
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.pdb
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe.config
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.pdb
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\DequeNet.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\IndexRange.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.AppContext.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Console.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Globalization.Calendars.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Http.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Sockets.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\WebSocketDotNet.dll
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.pdb
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe.config
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.xml
+D:\HCI LAB\CrossHaptics\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CopyComplete
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe.config
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.pdb
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\DequeNet.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\IndexRange.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Win32.Primitives.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.AppContext.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Console.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Globalization.Calendars.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.ZipFile.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.FileSystem.Primitives.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Http.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Net.Sockets.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Algorithms.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Encoding.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.Primitives.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\WebSocketDotNet.dll
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.pdb
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe.config
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.xml
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.AssemblyReference.cache
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CoreCompileInputs.cache
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CopyComplete
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.exe
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.pdb
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib2.exe
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib2.pdb
+D:\HCI LAB\CrossHaptics\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib2.exe.config
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe.config
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.exe
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\HapticDeviceController.pdb
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\IndexRange.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Compression.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\WebSocketDotNet.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.pdb
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\RedisEndPoint_dotnetFramework.exe.config
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLib.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\Pipelines.Sockets.Unofficial.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\StackExchange.Redis.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Buffers.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.IO.Pipelines.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Memory.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Channels.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.ValueTuple.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.AssemblyReference.cache
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CoreCompileInputs.cache
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CopyComplete
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.exe
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.pdb
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.PerformanceCounter.dll
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\System.Diagnostics.PerformanceCounter.xml
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLibEndpoint.exe
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLibEndpoint.pdb
+C:\Users\HCI_Lab\Desktop\2023_Test\HapticDeviceController\HapticDeviceController\bin\Debug\bHapticsLibEndpoint.exe.config
