@@ -21,7 +21,7 @@ namespace OpenVRInputTest
         public static TrackedDevicePose_t RightControllerPose = new TrackedDevicePose_t();
         private static TrackedDevicePose_t[] TrackedDevicePose_t = { new TrackedDevicePose_t() };
 
-        public static void UpdateTrackableDevicePosition(ref Queue<Tuple<string, string, string>> output_data)
+        public static void UpdateTrackableDevicePosition(ref Queue<Tuple<DateTime, string, string>> output_data)
         {
             VRControllerState_t controllerState = new VRControllerState_t();
             var size = (uint)Marshal.SizeOf(typeof(VRControllerState_t));

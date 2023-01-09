@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 using Valve.VR;
 using System.Globalization;
 
-namespace OpenVRInputTest
-{
-    public class VREventCallback
-    {
-        public enum DeviceType
-        {
+namespace OpenVRInputTest {
+    public class VREventCallback {
+        public enum DeviceType {
             HMD,
             LeftController,
             RightController
         }
-        public static void SendEventOut(string SourceTypeName, string EventType, string EventName, string StateInfo, ref Queue<Tuple<string, string, string>>  output_data)
-        {
+        public static void SendEventOut(string SourceTypeName, string EventType, string EventName, string StateInfo, ref Queue<Tuple<DateTime, string, string>> output_data) {
 #if DEBUG
             /*
              Example:
@@ -34,7 +30,7 @@ namespace OpenVRInputTest
             string EventTime = DateTime.Now.ToString("MM/dd HH:mm:ss.fff", ci) + "  :"; // 分析資料用
             EventTime = DateTime.Now.ToString(ci); // 玩遊戲用
             lock (output_data) {
-                output_data.Enqueue(Tuple.Create(EventTime, $"{SourceTypeName}|{EventType}|{EventName}|{StateInfo}", EventType));
+                output_data.Enqueue(Tuple.Create(DateTime.Now, $"{SourceTypeName}|{EventType}|{EventName}|{StateInfo}", EventType));
             }
             // **************** 收數據的時候用的格式 ***************//
 
@@ -50,35 +46,35 @@ namespace OpenVRInputTest
             // **************** 是不是要只publish controller? ******//
 
         }
-        public static void NewDigitalEvent(DeviceType SourceType, DigitalControllerEvent EventClass, bool State, ref Queue<Tuple<string, string, string>> output_data) {
+        public static void NewDigitalEvent(DeviceType SourceType, DigitalControllerEvent EventClass, bool State, ref Queue<Tuple<DateTime, string, string>> output_data) {
             string SourceTypeName = Enum.GetName(typeof(DeviceType), SourceType);
             string EventType = "Digital";
             string EventName = EventClass.EventName();
             string StateInfo = (State ? "Pressed" : "Released");
             SendEventOut(SourceTypeName, EventType, EventName, StateInfo, ref output_data);
         }
-        public static void NewAnalogEvent(DeviceType SourceType, AnalogControllerEvent EventClass, in InputAnalogActionData_t AnalogData, ref Queue<Tuple<string, string, string>> output_data) {
+        public static void NewAnalogEvent(DeviceType SourceType, AnalogControllerEvent EventClass, in InputAnalogActionData_t AnalogData, ref Queue<Tuple<DateTime, string, string>> output_data) {
             string SourceTypeName = Enum.GetName(typeof(DeviceType), SourceType);
             string EventType = "Digital";
             string EventName = EventClass.EventName();
             string StateInfo = $"{{{AnalogData.x:F4}, {AnalogData.y:F4}, {AnalogData.z:F4} }}";
             SendEventOut(SourceTypeName, EventType, EventName, StateInfo, ref output_data);
         }
-        public static void NewPoseEvent(DeviceType SourceType, PoseControllerEvent EventClass, in HmdVector3_t PoseData, in HmdQuaternion_t QuaternionData, ref Queue<Tuple<string, string, string>> output_data) {
+        public static void NewPoseEvent(DeviceType SourceType, PoseControllerEvent EventClass, in HmdVector3_t PoseData, in HmdQuaternion_t QuaternionData, ref Queue<Tuple<DateTime, string, string>> output_data) {
             string SourceTypeName = Enum.GetName(typeof(DeviceType), SourceType);
             string EventType = "Pose";
             string EventName = EventClass.EventName();
             string StateInfo = $"Position {{{PoseData.v0:F4}, {PoseData.v1:F4}, {PoseData.v2:F4} }} Quaternion {{{QuaternionData.w:F4}, {QuaternionData.x:F4}, {QuaternionData.y:F4}, {QuaternionData.z:F4} }}";
-            SendEventOut(SourceTypeName, EventType, EventName, StateInfo,ref output_data);
+            SendEventOut(SourceTypeName, EventType, EventName, StateInfo, ref output_data);
         }
-        public static void NewPoseEvent(DeviceType SourceType, in HmdVector3_t PoseData, in HmdQuaternion_t QuaternionData, ref Queue<Tuple<string, string, string>> output_data) {
+        public static void NewPoseEvent(DeviceType SourceType, in HmdVector3_t PoseData, in HmdQuaternion_t QuaternionData, ref Queue<Tuple<DateTime, string, string>> output_data) {
             string SourceTypeName = Enum.GetName(typeof(DeviceType), SourceType);
             string EventType = "Pose";
             string EventName = "ObjectAttitude";
             string StateInfo = $"Position {{{PoseData.v0:F4}, {PoseData.v1:F4}, {PoseData.v2:F4} }} Quaternion {{{QuaternionData.w:F4}, {QuaternionData.x:F4}, {QuaternionData.y:F4}, {QuaternionData.z:F4} }}";
             SendEventOut(SourceTypeName, EventType, EventName, StateInfo, ref output_data);
         }
-        public static void NewVibrationEvent(ETrackedControllerRole DeviceType, VREvent_HapticVibration_t HapticData, ref Queue<Tuple<string,string,string >> output_data) {
+        public static void NewVibrationEvent(ETrackedControllerRole DeviceType, VREvent_HapticVibration_t HapticData, ref Queue<Tuple<DateTime, string, string>> output_data) {
             string SourceTypeName;
             switch (DeviceType) {
                 case ETrackedControllerRole.LeftHand:
@@ -93,7 +89,7 @@ namespace OpenVRInputTest
             string EventType = "Output";
             string EventName = "Vibration";
             string StateInfo = $"Amp {HapticData.fAmplitude:F4} Freq {HapticData.fFrequency:F4} Duration {HapticData.fDurationSeconds:F4}";
-            SendEventOut(SourceTypeName, EventType, EventName, StateInfo,ref output_data);
+            SendEventOut(SourceTypeName, EventType, EventName, StateInfo, ref output_data);
 
         }
     }

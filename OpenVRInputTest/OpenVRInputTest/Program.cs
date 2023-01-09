@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
+using System.Globalization;
 using Valve.VR;
 using RedisEndpoint;
 using static OpenVRInputTest.VREventCallback;
+
 //Sources: https://github.com/BOLL7708/OpenVRInputTest
 namespace OpenVRInputTest {
     class Program {
@@ -20,7 +21,7 @@ namespace OpenVRInputTest {
         //static InputDigitalActionData_t[] mActionArray;
         static Controller rightController, leftController;
         //public static Queue<string> output_data = new Queue<string>();
-        public static Queue<Tuple<string, string, string>> output_data = new Queue<Tuple<string, string, string>>();
+        public static Queue<Tuple<DateTime, string, string>> output_data = new Queue<Tuple<DateTime, string, string>>();
         public static DateTime start_time = new DateTime(DateTime.MinValue.Ticks);
         public static Stopwatch sw = new Stopwatch();
         // # items are referencing this list of actions: https://github.com/ValveSoftware/openvr/wiki/SteamVR-Input#getting-started
@@ -140,7 +141,7 @@ namespace OpenVRInputTest {
 
                 // Printing events
                 foreach (VREvent_t e in vrEvents) {
-                    
+
                     var pid = e.data.process.pid;
                     if (e.eventType == (uint)EVREventType.VREvent_Input_HapticVibration) {
                         ETrackedControllerRole DeviceType = OpenVR.System.GetControllerRoleForTrackedDeviceIndex(e.data.process.pid);
@@ -195,22 +196,26 @@ namespace OpenVRInputTest {
         private static void Writer() {
             Thread.CurrentThread.IsBackground = true;
             while (true) {
-                //Utils.Print($"writer {sw.ElapsedMilliseconds} ms|");
                 if (output_data.Count != 0) {
-                    //Utils.PrintInfo("dequeue");
-                    Tuple<string, string,string > temp;
+                    Tuple<DateTime, string, string> temp;
                     lock (output_data) {
                         temp = output_data.Dequeue();
                     }
-                    //LogWriterTest.LogWriter.LogWrite(temp.Item1+temp.Item2, "console.txt"); // 如果要寫進log做資料分析
+                    // ========時間格式==========
+                    CultureInfo ci = new CultureInfo("en-US");
+                    string EventTimeForAnalyze = temp.Item1.ToString("MM/dd HH:mm:ss.fff", ci) + "  :"; // 分析資料用 所以把fff(毫秒特別拉出來)
+                    string EventTimeForCrossHaptics = temp.Item1.ToString(ci); // 玩遊戲用的話精度不用那麼高 用標準格式比較好
+                    LogWriterTest.LogWriter.LogWrite(EventTimeForAnalyze + temp.Item2, "console.txt"); // 如果要寫進log做資料分析
+                    // ========時間格式==========
 
-
-                    // 37~42包含output
+                    // ========redis publish==========
                     if (Program.outletChannelName != null) {
                         if (temp.Item3 == "Output") { // controller的資料
-                            Program.publisher.Publish(Program.outletChannelName, $"{temp.Item1}|{temp.Item2}"); // pub到redis 給其他script吃
+                            Program.publisher.Publish(Program.outletChannelName, $"{EventTimeForCrossHaptics}|{temp.Item2}"); // pub到redis 給其他script吃
+                            Utils.PrintDebug(EventTimeForAnalyze + temp.Item2);
                         }
                     }
+                    // ========redis publish==========
                 }
             }
         }

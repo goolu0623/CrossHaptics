@@ -92,6 +92,9 @@
     <Compile Include="VREventCallback.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="actions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

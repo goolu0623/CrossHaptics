@@ -63,7 +63,7 @@ namespace OpenVRInputTest {
         InputDigitalActionData_t Digital;
         InputAnalogActionData_t Analog;
         InputPoseActionData_t Pose;
-        HmdVector3_t Position;
+        //HmdVector3_t Position; // 跟77行的constructor一起被我註解掉，因為暫時用不到一直噴黃色warning很煩
         public ControllerEvent() {
             switch (EventType()) {
                 case EventTypeEmun.Digital:
@@ -74,7 +74,7 @@ namespace OpenVRInputTest {
                     break;
                 case EventTypeEmun.Pose:
                     Pose = new InputPoseActionData_t();
-                    Position = new HmdVector3_t();
+                    //Position = new HmdVector3_t();
                     break;
             }
         }
@@ -87,7 +87,7 @@ namespace OpenVRInputTest {
                 Utils.PrintError($"GetActionHandle {controller.ControllerName} {EventName()} Error: {Enum.GetName(typeof(EVRInputError), errorID)}");
             Utils.PrintDebug($"Action Handle {controller.ControllerName} {EventName()}: {ActionHandle}");
         }
-        public bool DigitalFetchEventResult(ref Queue<Tuple<string, string, string>> output_data) {
+        public bool DigitalFetchEventResult(ref Queue<Tuple<DateTime, string, string>> output_data) {
             var size = (uint)Marshal.SizeOf(typeof(InputDigitalActionData_t));
             OpenVR.Input.GetDigitalActionData(ActionHandle, ref Digital, size, controller.ControllerHandle);
             // Result
@@ -96,7 +96,7 @@ namespace OpenVRInputTest {
             }
             return Digital.bState;
         }
-        public InputAnalogActionData_t AnalogFetchEventResult(ref Queue<Tuple<string, string,string >> output_data) {
+        public InputAnalogActionData_t AnalogFetchEventResult(ref Queue<Tuple<DateTime, string, string>> output_data) {
             var size = (uint)Marshal.SizeOf(typeof(InputAnalogActionData_t));
             OpenVR.Input.GetAnalogActionData(ActionHandle, ref Analog, size, controller.ControllerHandle);
             // Result
@@ -105,7 +105,7 @@ namespace OpenVRInputTest {
             }
             return Analog;
         }
-        public InputPoseActionData_t PoseFetchEventResult(ref Queue<Tuple<string, string, string>> output_data) {
+        public InputPoseActionData_t PoseFetchEventResult(ref Queue<Tuple<DateTime, string, string>> output_data) {
             var size = (uint)Marshal.SizeOf(typeof(InputPoseActionData_t));
             OpenVR.Input.GetPoseActionData(ActionHandle, ETrackingUniverseOrigin.TrackingUniverseStanding, 1 / Program.DataFrameRate, ref Pose, size, controller.ControllerHandle);
             if (Pose.pose.bDeviceIsConnected == true && Pose.pose.bPoseIsValid == true) {

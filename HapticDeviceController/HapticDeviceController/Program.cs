@@ -25,7 +25,6 @@ namespace HapticDeviceController {
             //Console.ReadLine();
 
 
-
             Console.WriteLine("HapticDeviceController start");
             outletChannelName = args[0];
 
