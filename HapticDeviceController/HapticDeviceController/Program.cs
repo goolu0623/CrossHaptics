@@ -15,8 +15,8 @@ namespace HapticDeviceController {
 
         public static HapticEventsHandler eventsHandler = new HapticEventsHandler();
         public static Thread deviceThread = new Thread(eventsHandler.mainThread);
-        public static Thread pubThread = new Thread(fn_publisher);
-        public static Thread subThread = new Thread(fn_subscriber);
+        public static Thread pubThread = new Thread(FnPublisher);
+        public static Thread subThread = new Thread(FnSubscriber);
 
 
 
@@ -33,22 +33,21 @@ namespace HapticDeviceController {
             deviceThread.Start();
             Console.WriteLine("normal start");
             Console.ReadLine();
+            Console.WriteLine("abort");
             subThread.Abort();
             //pubThread.Abort();
-
-            //deviceThread.Abort();
-
+            deviceThread.Abort();
 
             return;
         }
-        static void testfunction() {
+        static void TestFunction() {
             CultureInfo ci = new CultureInfo("en-US");
             string startTime = DateTime.Now.ToString(ci);
-            while (timediff(startTime) < 10000) {
+            while (TimeDiff(startTime) < 10000) {
                 continue;
             }
         }
-        static double timediff(string target_time) {
+        static double TimeDiff(string target_time) {
             CultureInfo ci = new CultureInfo("en-US");
             DateTime targetTime = DateTime.Parse(target_time, ci, DateTimeStyles.NoCurrentDateDefault);
             DateTime nowTime = DateTime.Now;
@@ -57,13 +56,13 @@ namespace HapticDeviceController {
             return time_diff;
         }
 
-        static void fn_publisher() {
+        static void FnPublisher() {
             Console.WriteLine("start pub");
             int cnt = 0;
             while (true) {
-                if(cnt%10000000 == 0) {
+                if (cnt % 10000000 == 0) {
                     publisher.Publish(outletChannelName, cnt.ToString());
-                    System.Console.WriteLine("publish"+cnt.ToString());
+                    System.Console.WriteLine("publish" + cnt.ToString());
                 }
                 cnt++;
             }
@@ -73,15 +72,15 @@ namespace HapticDeviceController {
             //return;
         }
 
-        static void fn_subscriber() {
+        static void FnSubscriber() {
             Console.WriteLine("start sub " + outletChannelName);
             subscriber.SubscribeTo(outletChannelName);
             //subscriber.msgQueue.OnMessage(msg => TestPrinter(msg.Message));
             subscriber.msgQueue.OnMessage(msg => eventsHandler.Router(msg.Message));
         }
-        static void TestPrinter(string msg) {
-            Console.WriteLine(msg);
-        }
+        //static void TestPrinter(string msg) {
+        //    Console.WriteLine(msg);
+        //}
         //static void Router(string msg) {
         //    System.Console.WriteLine(msg);
         //    return;
@@ -90,7 +89,7 @@ namespace HapticDeviceController {
 
 
 
-        
+
     }
-    
+
 }

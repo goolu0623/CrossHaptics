@@ -198,14 +198,14 @@ namespace OpenVRInputTest {
             while (true) {
                 if (output_data.Count != 0) {
                     Tuple<DateTime, string, string> temp;
-                    lock (output_data) {
+                    lock (output_data) {  
                         temp = output_data.Dequeue();
                     }
                     // ========時間格式==========
                     CultureInfo ci = new CultureInfo("en-US");
                     string EventTimeForAnalyze = temp.Item1.ToString("MM/dd HH:mm:ss.fff", ci) + "  :"; // 分析資料用 所以把fff(毫秒特別拉出來)
-                    string EventTimeForCrossHaptics = temp.Item1.ToString(ci); // 玩遊戲用的話精度不用那麼高 用標準格式比較好
-                    LogWriterTest.LogWriter.LogWrite(EventTimeForAnalyze + temp.Item2, "console.txt"); // 如果要寫進log做資料分析
+                    string EventTimeForCrossHaptics = temp.Item1.ToString(ci); // 玩遊戲用的話精度不用那麼高 用標準格式比較好處理
+                    //LogWriterTest.LogWriter.LogWrite(EventTimeForAnalyze + temp.Item2, "console.txt"); // 如果要寫進log做資料分析
                     // ========時間格式==========
 
                     // ========redis publish==========
