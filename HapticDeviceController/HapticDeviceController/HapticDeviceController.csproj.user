@@ -4,6 +4,6 @@
     <StartArguments>test_channelname</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartArguments>1234</StartArguments>
+    <StartArguments>test_channelname</StartArguments>
   </PropertyGroup>
 </Project>

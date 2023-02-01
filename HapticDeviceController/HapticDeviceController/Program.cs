@@ -29,6 +29,13 @@ namespace HapticDeviceController {
             subThread.Start();
             deviceThread.Start();
             Console.WriteLine("normal start");
+#if DEBUG
+            Console.WriteLine("Debug");
+            while(true){
+                if(eventsHandler.KeyCheck())
+                    break;
+            }
+#endif
             Console.ReadLine();
             Console.WriteLine("abort");
             subThread.Abort();

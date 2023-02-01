@@ -99,18 +99,15 @@ namespace HapticDeviceController {
             //System.Threading.Thread.CurrentThread.IsBackground = true;
             //bHapticsLib Vest Init
             vestController.Init();
-#if DEBUG
-            Console.WriteLine("debug mode");
-#endif
+
             HapticEvent nowEvent; // 後面會一直用到 在這邊宣告應該比較不浪費宣告又release的時間
+
+
+
 
 
             while (true) {
 
-#if DEBUG
-                //Console.WriteLine("123");
-                KeyCheck(); //按鍵可以主動觸發vibration
-#endif
                 // 看list裡面的時間過期沒
                 while (eventList.Count() != 0) {
                     DateTime nowTime = DateTime.Now;
@@ -130,28 +127,13 @@ namespace HapticDeviceController {
                     //eventList.RemoveFirst();
                     if (IsSymmetric()) {
                         Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-
+                        sym_pattern_1(ref nowEvent);
                     }
                     else {
                         // Console.WriteLine(eventTime + ": " + "None Amp = " + nowEvent.Amplitude + " Dur = " + nowEvent.Duration + " Freq = " + nowEvent.Frequency);
                         // send 原本controller震動 (這邊我們不disable的話可以do nothing, 就不用remap回去了)
                         Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                        if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "LeftController") {
-                            vestController.Play(
-                                amp: nowEvent.Amplitude,
-                                freq: nowEvent.Frequency,
-                                dur: nowEvent.Duration,
-                                body_side: BodySide.left
-                            );
-                        }
-                        else if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "RightController") {
-                            vestController.Play(
-                                amp: nowEvent.Amplitude,
-                                freq: nowEvent.Frequency,
-                                dur: nowEvent.Duration,
-                                body_side: BodySide.right
-                            );
-                        }
+                        nonesym_pattern_1(ref nowEvent);
                     }
                     lock (eventList) {
                         eventList.RemoveFirst();
@@ -174,8 +156,24 @@ namespace HapticDeviceController {
             return;
         }
 
-        private void nonesym_pattern_1() {
+        private void nonesym_pattern_1(ref HapticEvent nowEvent) {
             // 
+            if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "LeftController") {
+                vestController.Play(
+                    amp: nowEvent.Amplitude,
+                    freq: nowEvent.Frequency,
+                    dur: nowEvent.Duration,
+                    body_side: BodySide.left
+                );
+            }
+            else if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "RightController") {
+                vestController.Play(
+                    amp: nowEvent.Amplitude,
+                    freq: nowEvent.Frequency,
+                    dur: nowEvent.Duration,
+                    body_side: BodySide.right
+                );
+            }
             return;
         }
 
@@ -183,8 +181,10 @@ namespace HapticDeviceController {
         public bool KeyCheck() {
             if (!Console.KeyAvailable)
                 return false;
-            ScaleOption temp = new ScaleOption();
+
+            
             ConsoleKeyInfo key = Console.ReadKey(true);
+            ScaleOption temp = new ScaleOption();
             switch (key.Key) {
                 case ConsoleKey.Enter:
                     return true;
@@ -245,7 +245,7 @@ namespace HapticDeviceController {
                 case ConsoleKey.A:
                     temp.Intensity = 0.1f;
                     temp.Duration = 1f;
-                    vestController.Play(0.1f, 200f, 0.01f, BodySide.both);
+                    vestController.Play(1f, 320f, 1f, BodySide.both);
                     Console.WriteLine("get A");
                     goto default;
                 case ConsoleKey.S:
