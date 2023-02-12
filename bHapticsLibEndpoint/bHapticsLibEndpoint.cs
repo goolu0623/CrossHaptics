@@ -14,7 +14,7 @@ namespace bHapticsLibEndpoint {
         public static VestObject VestLeft;
         public static VestObject VestRight;
         public static VestObject VestBoth;
-        public static HeadObject Head;
+        public static HeadObject HeadBoth;
 
 
         // bHapticLib連線
@@ -23,17 +23,10 @@ namespace bHapticsLibEndpoint {
 
         public void Init() {
             // bHapticsLib Function
-            VestLeft = new VestObject("left_vest", BodySide.left); // 現在裡面是裝40ms
-            VestRight = new VestObject("right_vest", BodySide.right); // 現在裡面是裝40ms
-            VestBoth = new VestObject("both_vest", BodySide.both); // 現在裡面是裝40ms
-
-            //string testFeedbackPath0 = Path.Combine(this.assembly_location, "CrossHaptics_Intensity_0.tact");
-            //string testFeedbackPath1 = Path.Combine(this.assembly_location, "CrossHaptics_Intensity_1.tact");
-            //string testFeedbackPath2 = Path.Combine(this.assembly_location, "CrossHaptics_Intensity_2.tact");
-
-            //testFeedbackSwapped0 = HapticPattern.LoadSwappedFromFile("CrossHaptics_Intensity_0", testFeedbackPath0);
-            //testFeedbackSwapped1 = HapticPattern.LoadSwappedFromFile("CrossHaptics_Intensity_1", testFeedbackPath1);
-            //testFeedbackSwapped2 = HapticPattern.LoadSwappedFromFile("CrossHaptics_Intensity_2", testFeedbackPath2);
+            VestLeft = new VestObject("left_vest", BodySide.left); // 現在裡面是1ms
+            VestRight = new VestObject("right_vest", BodySide.right); // 現在裡面是1ms
+            VestBoth = new VestObject("both_vest", BodySide.both); // 現在裡面是1ms
+            HeadBoth = new HeadObject("both_head", BodySide.both); // 現在裡面是1ms
 
 
             //這個path.tact要放的資料夾
@@ -63,14 +56,19 @@ namespace bHapticsLibEndpoint {
                 // 減amplitude的依據暫時先以小於11ms的畫 等比例減少? 11ms->0ms 把amplitude呈線性的減少
                 ScaleOption scale_option = new ScaleOption();
                 scale_option.Duration = dur;
+                Console.WriteLine(dur);
                 if (dur >= 0.011f) {
                     scale_option.Intensity = amp;
+                }
+                else if (dur == 0f) {
+                    scale_option.Intensity = amp;
+                    scale_option.Duration = 0.011f;
                 }
                 else {
                     scale_option.Intensity = amp * (dur / 0.011f +0.2f);
                 }
                 VestBoth.haptic_pattern.Play(scale_option);
-                
+                HeadBoth.haptic_pattern.Play(scale_option);
             }
             // 左右手的話 if Amp>0.8 做一下強化
             else if (body_side == BodySide.left) {
@@ -82,28 +80,6 @@ namespace bHapticsLibEndpoint {
                 VestRight.haptic_pattern.Play(scale_option);
             }
 
-            //if (連接狀況) {
-            // 不同狀況要怎麼mapping pattern
-            // 如果只有一個背心要怎麼map
-            // 如果是單手訊號怎麼map
-            // 
-            //}
-
-
-
-            //switch (type) {
-            //    case 0:
-            //        testFeedbackSwapped0.Play();
-            //        goto default;
-            //    case 1:
-            //        testFeedbackSwapped1.Play();
-            //        goto default;
-            //    case 2:
-            //        testFeedbackSwapped2.Play();
-            //        goto default;
-            //    default:
-            //        return;
-            //}
         }
 
         static void Main() {
@@ -139,7 +115,7 @@ namespace bHapticsLibEndpoint {
             this.name = name;
             this.assembly_location = Path.GetDirectoryName(typeof(VestController).Assembly.Location);
             this.tactfile_path = Path.Combine(this.assembly_location, this.name + ".tact");
-            this.haptic_pattern = HapticPattern.LoadSwappedFromFile(this.name, this.tactfile_path);
+            this.haptic_pattern = HapticPattern.LoadFromFile(this.name, this.tactfile_path);
             this.body_part = BodyPart.head;
             this.body_side = side;
         }
