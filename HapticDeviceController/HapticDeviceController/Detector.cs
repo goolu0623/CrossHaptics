@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
@@ -15,6 +15,9 @@ namespace HapticDeviceController {
         //bhapticslibs
         private VestController vestController = new VestController();
 
+        // switches for solution
+        public bool SYM_enabled=false;
+
         private struct HapticEvent {
             // 性質
             public float Duration; // 這三個基本資訊合起來是 channel 裡的 stateinfo 
@@ -29,6 +32,7 @@ namespace HapticDeviceController {
 
             public DateTime EnListTime;
 
+
             public HapticEvent(string EventTime, string SourceTypeName, string EventType, string EventName, string Amp, string Freq, string Dur, DateTime EnListTime) {
                 this.Duration = Convert.ToSingle(Dur);
                 this.Amplitude = Convert.ToSingle(Amp);
@@ -41,6 +45,7 @@ namespace HapticDeviceController {
                 this.SourceTypeName = SourceTypeName;
 
                 this.EnListTime = EnListTime;
+
             }
         };
         private LinkedList<HapticEvent> eventList = new LinkedList<HapticEvent>();
@@ -94,7 +99,7 @@ namespace HapticDeviceController {
 
         }
         
-
+        public bool Ischange = false; 
         public void mainThread() {
             //System.Threading.Thread.CurrentThread.IsBackground = true;
             //bHapticsLib Vest Init
@@ -108,6 +113,7 @@ namespace HapticDeviceController {
 
             while (true) {
 
+                
                 // 看list裡面的時間過期沒
                 while (eventList.Count() != 0) {
                     DateTime nowTime = DateTime.Now;
@@ -125,20 +131,27 @@ namespace HapticDeviceController {
 
 
                     //eventList.RemoveFirst();
-                    if (IsSymmetric()) {
-                        Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                        sym_pattern_1(ref nowEvent);
-                    }
-                    else {
+                    if (SYM_enabled == true){
+                        if (IsSymmetric()) {
+                            Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                            sym_pattern_1(ref nowEvent);
+                        }
+                        else {
                         // Console.WriteLine(eventTime + ": " + "None Amp = " + nowEvent.Amplitude + " Dur = " + nowEvent.Duration + " Freq = " + nowEvent.Frequency);
                         // send 原本controller震動 (這邊我們不disable的話可以do nothing, 就不用remap回去了)
+                            Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                            nonesym_pattern_1(ref nowEvent);
+                        }
+
+                    }
+                    else{
                         Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
                         nonesym_pattern_1(ref nowEvent);
                     }
                     lock (eventList) {
                         eventList.RemoveFirst();
                     }
-
+                    
                 }
                 // 睡個1ms再來一次 免得他一直跑 block掉其他人
                 // System.Threading.Thread.Sleep(1);
@@ -177,6 +190,11 @@ namespace HapticDeviceController {
             return;
         }
 
+        public void Switch_Solution_Mode()
+        {
+            SYM_enabled = (SYM_enabled) ? false : true;
+            Console.WriteLine("SYM_enabled: " + SYM_enabled);
+        }
 
         public bool KeyCheck() {
             if (!Console.KeyAvailable)
@@ -272,6 +290,8 @@ namespace HapticDeviceController {
                     return false;
             }
         }
+
+       
     }
 
 }
