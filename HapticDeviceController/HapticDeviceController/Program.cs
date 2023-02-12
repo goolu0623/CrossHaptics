@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RedisEndpoint;
 using System.Threading;
 using System.Globalization;
@@ -29,6 +29,18 @@ namespace HapticDeviceController {
             subThread.Start();
             deviceThread.Start();
             Console.WriteLine("normal start");
+            while (true){
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                switch (key.Key) {
+
+                    case ConsoleKey.C:
+                        eventsHandler.Switch_Solution_Mode();
+                        goto default;
+
+                    default:
+                        break;
+                }
+            }   
 #if DEBUG
             Console.WriteLine("Debug");
             while(true){
