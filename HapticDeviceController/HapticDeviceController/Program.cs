@@ -29,6 +29,10 @@ namespace HapticDeviceController {
             subThread.Start();
             deviceThread.Start();
             Console.WriteLine("normal start");
+            Console.WriteLine("press C to switch mode");
+            Console.WriteLine("press V to disable vibration");
+            Console.WriteLine("press enter to stop");
+#if !DEBUG
             while (true){
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 switch (key.Key) {
@@ -36,11 +40,18 @@ namespace HapticDeviceController {
                     case ConsoleKey.C:
                         eventsHandler.Switch_Solution_Mode();
                         goto default;
-
+                    case ConsoleKey.V:
+                        eventsHandler.Switch_Vibration_onoff();
+                        goto default;
+                    case ConsoleKey.Enter:
+                        subThread.Abort();
+                        deviceThread.Abort();
+                        return;
                     default:
                         break;
                 }
             }   
+#endif
 #if DEBUG
             Console.WriteLine("Debug");
             while(true){
@@ -48,12 +59,12 @@ namespace HapticDeviceController {
                     break;
             }
 #endif
-            Console.ReadLine();
-            Console.WriteLine("abort");
-            subThread.Abort();
-            deviceThread.Abort();
+            //Console.ReadLine();
+            //Console.WriteLine("abort");
+            //subThread.Abort();
+            //deviceThread.Abort();
 
-            return;
+            //return;
         }
 
         static void FnSubscriber() {

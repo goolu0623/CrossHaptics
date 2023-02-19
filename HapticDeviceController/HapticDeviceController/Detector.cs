@@ -18,6 +18,8 @@ namespace HapticDeviceController {
         // switches for solution
         public bool SYM_enabled=false;
 
+        public bool Vibration_enabled = false;
+
         private struct HapticEvent {
             // 性質
             public float Duration; // 這三個基本資訊合起來是 channel 裡的 stateinfo 
@@ -48,6 +50,11 @@ namespace HapticDeviceController {
 
             }
         };
+
+        internal void Switch_Vibration_onoff() {
+            throw new NotImplementedException();
+        }
+
         private LinkedList<HapticEvent> eventList = new LinkedList<HapticEvent>();
         private bool IsSymmetric() {
             // 檢查第一個有沒有跟人對稱
@@ -129,29 +136,32 @@ namespace HapticDeviceController {
                     if ((nowTime - nowEvent.EnListTime).TotalMilliseconds < DELAY_TIME_WINDOW)
                         break;
 
+                    if(Vibration_enabled == true) {
+                        if (SYM_enabled == true){
+                            if (IsSymmetric()) {
+                                Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                                sym_pattern_1(ref nowEvent);
+                            }
+                            else {
+                            // Console.WriteLine(eventTime + ": " + "None Amp = " + nowEvent.Amplitude + " Dur = " + nowEvent.Duration + " Freq = " + nowEvent.Frequency);
+                            // send 原本controller震動 (這邊我們不disable的話可以do nothing, 就不用remap回去了)
+                                Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                                nonesym_pattern_1(ref nowEvent);
+                            }
 
-                    //eventList.RemoveFirst();
-                    if (SYM_enabled == true){
-                        if (IsSymmetric()) {
-                            Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                            sym_pattern_1(ref nowEvent);
                         }
-                        else {
-                        // Console.WriteLine(eventTime + ": " + "None Amp = " + nowEvent.Amplitude + " Dur = " + nowEvent.Duration + " Freq = " + nowEvent.Frequency);
-                        // send 原本controller震動 (這邊我們不disable的話可以do nothing, 就不用remap回去了)
+                        else{
                             Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
                             nonesym_pattern_1(ref nowEvent);
                         }
 
                     }
-                    else{
-                        Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                        nonesym_pattern_1(ref nowEvent);
-                    }
                     lock (eventList) {
                         eventList.RemoveFirst();
                     }
-                    
+                    //eventList.RemoveFirst();
+
+
                 }
                 // 睡個1ms再來一次 免得他一直跑 block掉其他人
                 // System.Threading.Thread.Sleep(1);
@@ -194,6 +204,11 @@ namespace HapticDeviceController {
         {
             SYM_enabled = (SYM_enabled) ? false : true;
             Console.WriteLine("SYM_enabled: " + SYM_enabled);
+        }
+
+        public void Switch_Vibration_OnOff() {
+            Vibration_enabled = (Vibration_enabled) ? false : true;
+            Console.WriteLine("Vibration_enabled: " + Vibration_enabled);
         }
 
         public bool KeyCheck() {

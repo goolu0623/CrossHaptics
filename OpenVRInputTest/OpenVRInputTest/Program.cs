@@ -24,6 +24,8 @@ namespace OpenVRInputTest {
         public static Queue<Tuple<DateTime, string, string>> output_data = new Queue<Tuple<DateTime, string, string>>();
         public static DateTime start_time = new DateTime(DateTime.MinValue.Ticks);
         public static Stopwatch sw = new Stopwatch();
+
+        public static bool Is_Enabled = true;
         // # items are referencing this list of actions: https://github.com/ValveSoftware/openvr/wiki/SteamVR-Input#getting-started
         static void Main(string[] args) {
             outletChannelName = args[0];
@@ -37,6 +39,7 @@ namespace OpenVRInputTest {
 
             var writerThread = new Thread(Writer);
             writerThread.Priority = ThreadPriority.Normal;
+
             if (error != EVRInitError.None)
                 Utils.PrintError($"OpenVR initialization errored: {Enum.GetName(typeof(EVRInitError), error)}");
             else {
@@ -108,10 +111,30 @@ namespace OpenVRInputTest {
                 else
                     Utils.PrintError("Could not start writer thread.");
             }
-            Console.ReadLine();
-            workerThread.Abort();
-            writerThread.Abort();
-            OpenVR.Shutdown();
+
+            Utils.PrintWarning("Press key V to switch vibration mode");
+            Utils.PrintWarning("Press enter to end the scripts");
+            while (true) {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                switch (key.Key) {
+                    case ConsoleKey.V:
+                        if(Is_Enabled == true) {
+                            Utils.PrintWarning("Eable Vibration");
+                            Is_Enabled = false;
+                        }
+                        else {
+                            Utils.PrintWarning("Disable Vibration");
+                            Is_Enabled = true;
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        workerThread.Abort();
+                        writerThread.Abort();
+                        OpenVR.Shutdown();
+                        return;
+                }
+            }
+
         }
 
         private static void Worker() {
@@ -119,76 +142,112 @@ namespace OpenVRInputTest {
             sw.Start();
             Thread.CurrentThread.IsBackground = true;
             int RefreshRate = (int)(1000 / DataFrameRate);
+
+            // disable 用的東西
+
+            ulong LeftVibration = 0, RightVibration = 0;
+            OpenVR.Input.GetActionHandle("/actions/default/out/haptic_left", ref LeftVibration);
+            OpenVR.Input.GetActionHandle("/actions/default/out/haptic_right", ref RightVibration);
+
+
             while (true) {
-                // HMD跟controller的orientation跟position
-                if (sw.ElapsedMilliseconds > RefreshRate) {
-                    sw.Restart();
-                    TrackableDeviceInfo.UpdateTrackableDevicePosition(ref output_data);
-                }
+                if (Is_Enabled) {
+                    // #6 Update action set
+                    if (mActionSetArray == null) {
+                        var actionSet = new VRActiveActionSet_t {
+                            ulActionSet = mActionSetHandle,
+                            ulRestrictedToDevice = OpenVR.k_ulInvalidActionSetHandle,
+                            nPriority = 0
+                        };
+                        mActionSetArray = new VRActiveActionSet_t[] { actionSet };
 
-                // Getting events
-                var vrEvents = new List<VREvent_t>();
-                var vrEvent = new VREvent_t();
-
-                try {
-                    while (OpenVR.System.PollNextEvent(ref vrEvent, Utils.SizeOf(vrEvent))) {
-                        vrEvents.Add(vrEvent);
                     }
-                }
-                catch (Exception e) {
-                    Utils.PrintWarning($"Could not get events: {e.Message}");
-                }
+                    // 不停的送amp=0, dur=0的訊號
+                    var errorUAS = OpenVR.Input.UpdateActionState(mActionSetArray, (uint)Marshal.SizeOf(typeof(VRActiveActionSet_t)));
+                    if (errorUAS != EVRInputError.None)
+                        Utils.PrintError($"UpdateActionState Error: {Enum.GetName(typeof(EVRInputError), errorUAS)}");
 
-                // Printing events
-                foreach (VREvent_t e in vrEvents) {
+                    var errorLeftVibration = OpenVR.Input.TriggerHapticVibrationAction(LeftVibration, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
+                    if (errorLeftVibration != EVRInputError.None)
+                        Utils.PrintError($"Left Vibration Error: {Enum.GetName(typeof(EVRInputError), errorLeftVibration)}");
 
-                    var pid = e.data.process.pid;
-                    if (e.eventType == (uint)EVREventType.VREvent_Input_HapticVibration) {
-                        ETrackedControllerRole DeviceType = OpenVR.System.GetControllerRoleForTrackedDeviceIndex(e.data.process.pid);
-                        if (DeviceType != ETrackedControllerRole.LeftHand && DeviceType != ETrackedControllerRole.RightHand)
-                            continue;
-                        NewVibrationEvent(DeviceType, e.data.hapticVibration, ref output_data);
-                        //leftController.DisableVibration(DeviceType, e.data.hapticVibration);
-                        //rightController.DisableVibration(DeviceType, e.data.hapticVibration);
+                    var errorRightVibration = OpenVR.Input.TriggerHapticVibrationAction(RightVibration, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
+                    if (errorRightVibration != EVRInputError.None)
+                        Utils.PrintError($"Right Vibration Error: {Enum.GetName(typeof(EVRInputError), errorRightVibration)}");
+
+                }
+                else {
+                    // HMD跟controller的orientation跟position
+                    if (sw.ElapsedMilliseconds > RefreshRate) {
+                        sw.Restart();
+                        TrackableDeviceInfo.UpdateTrackableDevicePosition(ref output_data);
                     }
-#if DEBUG
-                    if ((EVREventType)vrEvent.eventType != EVREventType.VREvent_None) {
-                        var name = Enum.GetName(typeof(EVREventType), e.eventType);
-                        var message = $"[{pid}] {name}";
-                        if (pid == 0)
-                            Utils.PrintVerbose(message);
-                        else if (name == null)
-                            Utils.PrintVerbose(message);
-                        else if (name.ToLower().Contains("fail"))
-                            Utils.PrintWarning(message);
-                        else if (name.ToLower().Contains("error"))
-                            Utils.PrintError(message);
-                        else if (name.ToLower().Contains("success"))
-                            Utils.PrintInfo(message);
-                        else
-                            Utils.Print(message);
+
+                    // Getting events
+                    var vrEvents = new List<VREvent_t>();
+                    var vrEvent = new VREvent_t();
+
+                    try {
+                        while (OpenVR.System.PollNextEvent(ref vrEvent, Utils.SizeOf(vrEvent))) {
+                            vrEvents.Add(vrEvent);
+                        }
                     }
-                    Utils.PrintWarning($"each");
-#endif
+                    catch (Exception e) {
+                        Utils.PrintWarning($"Could not get events: {e.Message}");
+                    }
+
+                    // Printing events
+                    foreach (VREvent_t e in vrEvents) {
+
+                        var pid = e.data.process.pid;
+                        if (e.eventType == (uint)EVREventType.VREvent_Input_HapticVibration) {
+                            ETrackedControllerRole DeviceType = OpenVR.System.GetControllerRoleForTrackedDeviceIndex(e.data.process.pid);
+                            if (DeviceType != ETrackedControllerRole.LeftHand && DeviceType != ETrackedControllerRole.RightHand)
+                                continue;
+                            NewVibrationEvent(DeviceType, e.data.hapticVibration, ref output_data);
+                            //leftController.DisableVibration(DeviceType, e.data.hapticVibration);
+                            //rightController.DisableVibration(DeviceType, e.data.hapticVibration);
+                        }
+    #if DEBUG
+                        if ((EVREventType)vrEvent.eventType != EVREventType.VREvent_None) {
+                            var name = Enum.GetName(typeof(EVREventType), e.eventType);
+                            var message = $"[{pid}] {name}";
+                            if (pid == 0)
+                                Utils.PrintVerbose(message);
+                            else if (name == null)
+                                Utils.PrintVerbose(message);
+                            else if (name.ToLower().Contains("fail"))
+                                Utils.PrintWarning(message);
+                            else if (name.ToLower().Contains("error"))
+                                Utils.PrintError(message);
+                            else if (name.ToLower().Contains("success"))
+                                Utils.PrintInfo(message);
+                            else
+                                Utils.Print(message);
+                        }
+                        Utils.PrintWarning($"each");
+    #endif
+                    }
+
+                    // #6 Update action set
+                    if (mActionSetArray == null) {
+                        var actionSet = new VRActiveActionSet_t {
+                            ulActionSet = mActionSetHandle,
+                            ulRestrictedToDevice = OpenVR.k_ulInvalidActionSetHandle,
+                            nPriority = 0
+                        };
+                        mActionSetArray = new VRActiveActionSet_t[] { actionSet };
+                    }
+
+                    var errorUAS = OpenVR.Input.UpdateActionState(mActionSetArray, (uint)Marshal.SizeOf(typeof(VRActiveActionSet_t)));
+                    if (errorUAS != EVRInputError.None) Utils.PrintError($"UpdateActionState Error: {Enum.GetName(typeof(EVRInputError), errorUAS)}");
+
+
+                    // #7 Load input action data
+                    leftController.UpdateAllState(ref output_data);
+                    rightController.UpdateAllState(ref output_data);
+                    // Restrict rate
                 }
-
-                // #6 Update action set
-                if (mActionSetArray == null) {
-                    var actionSet = new VRActiveActionSet_t {
-                        ulActionSet = mActionSetHandle,
-                        ulRestrictedToDevice = OpenVR.k_ulInvalidActionSetHandle,
-                        nPriority = 0
-                    };
-                    mActionSetArray = new VRActiveActionSet_t[] { actionSet };
-                }
-
-                var errorUAS = OpenVR.Input.UpdateActionState(mActionSetArray, (uint)Marshal.SizeOf(typeof(VRActiveActionSet_t)));
-                if (errorUAS != EVRInputError.None) Utils.PrintError($"UpdateActionState Error: {Enum.GetName(typeof(EVRInputError), errorUAS)}");
-
-                // #7 Load input action data
-                leftController.UpdateAllState(ref output_data);
-                rightController.UpdateAllState(ref output_data);
-                // Restrict rate
             }
         }
 

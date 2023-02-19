@@ -56,7 +56,6 @@ namespace bHapticsLibEndpoint {
                 // 減amplitude的依據暫時先以小於11ms的畫 等比例減少? 11ms->0ms 把amplitude呈線性的減少
                 ScaleOption scale_option = new ScaleOption();
                 scale_option.Duration = dur;
-                Console.WriteLine(dur);
                 if (dur >= 0.011f) {
                     scale_option.Intensity = amp;
                 }
@@ -70,7 +69,8 @@ namespace bHapticsLibEndpoint {
                 VestBoth.haptic_pattern.Play(scale_option);
                 HeadBoth.haptic_pattern.Play(scale_option);
             }
-            // 左右手的話 if Amp>0.8 做一下強化
+            // 左右手的話 只有amp>0.9的會call近來, 在這邊我們做一個/3的強度的震動 避免它影響到主要的controller體驗
+            // 另外為了避免震動小到背心跑不出來 很小的dur我們會取一個lower bound 小於0.01f的都直接call 0.01f
             else if (body_side == BodySide.left) {
                 ScaleOption scale_option = new ScaleOption(intensity: amp / 3, duration: System.Math.Max(dur,0.01f));
                 VestLeft.haptic_pattern.Play(scale_option);
