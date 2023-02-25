@@ -41,7 +41,7 @@ namespace HapticDeviceController {
                         eventsHandler.Switch_Solution_Mode();
                         goto default;
                     case ConsoleKey.V:
-                        eventsHandler.Switch_Vibration_onoff();
+                        eventsHandler.Switch_Vibration_OnOff();
                         goto default;
                     case ConsoleKey.Enter:
                         subThread.Abort();
@@ -59,12 +59,7 @@ namespace HapticDeviceController {
                     break;
             }
 #endif
-            //Console.ReadLine();
-            //Console.WriteLine("abort");
-            //subThread.Abort();
-            //deviceThread.Abort();
 
-            //return;
         }
 
         static void FnSubscriber() {

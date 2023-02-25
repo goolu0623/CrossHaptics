@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31605.320
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenVRInputTest", "OpenVRInputTest\OpenVRInputTest.csproj", "{A792CDBC-7877-407D-90B2-364335DABF4A}"
 EndProject
@@ -36,6 +36,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {70F59ACC-105A-47FE-A8C7-668282EEBA43}
+		SolutionGuid = {805E0793-B39D-4E24-A41B-324CD00475C7}
 	EndGlobalSection
 EndGlobal

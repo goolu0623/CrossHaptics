@@ -3562,7 +3562,6 @@ public class CVRInput
 	public EVRInputError TriggerHapticVibrationAction(ulong action,float fStartSecondsFromNow,float fDurationSeconds,float fFrequency,float fAmplitude,ulong ulRestrictToDevice)
 	{
 		EVRInputError result = FnTable.TriggerHapticVibrationAction(action,fStartSecondsFromNow,fDurationSeconds,fFrequency,fAmplitude,ulRestrictToDevice);
-
 		return result;
 	}
 	public EVRInputError GetActionOrigins(ulong actionSetHandle,ulong digitalActionHandle,ulong [] originsOut)

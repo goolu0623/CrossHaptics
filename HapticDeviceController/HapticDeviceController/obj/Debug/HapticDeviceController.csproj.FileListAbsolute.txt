@@ -248,3 +248,4 @@ D:\DW\HCI\crosshaptics_gitfolder\HapticDeviceController\HapticDeviceController\o
 D:\DW\HCI\crosshaptics_gitfolder\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.CopyComplete
 D:\DW\HCI\crosshaptics_gitfolder\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.exe
 D:\DW\HCI\crosshaptics_gitfolder\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.pdb
+D:\DW\HCI\crosshaptics_gitfolder\HapticDeviceController\HapticDeviceController\obj\Debug\HapticDeviceController.csproj.SuggestedBindingRedirects.cache

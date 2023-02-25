@@ -4,6 +4,7 @@ using System.Linq;
 using System.Globalization;
 using bHapticsLibEndpoint;
 using bHapticsLib;
+using System.Threading;
 
 namespace HapticDeviceController {
     class HapticEventsHandler {
@@ -51,9 +52,6 @@ namespace HapticDeviceController {
             }
         };
 
-        internal void Switch_Vibration_onoff() {
-            throw new NotImplementedException();
-        }
 
         private LinkedList<HapticEvent> eventList = new LinkedList<HapticEvent>();
         private bool IsSymmetric() {
@@ -278,25 +276,26 @@ namespace HapticDeviceController {
                 case ConsoleKey.A:
                     temp.Intensity = 0.1f;
                     temp.Duration = 1f;
-                    vestController.Play(1f, 320f, 1f, BodySide.both);
+                    vestController.Play(1f, 100f, 0.011f, BodySide.left);
                     Console.WriteLine("get A");
                     goto default;
                 case ConsoleKey.S:
                     temp.Intensity = 0.1f;
                     temp.Duration = 1f;
-                    vestController.Play(0.2f, 200f, 0.001f, BodySide.both);
+                    vestController.Play(0.8f, 100f, 0.011f, BodySide.left);
                     Console.WriteLine("get S");
                     goto default;
                 case ConsoleKey.D:
                     temp.Intensity = 0.1f;
                     temp.Duration = 1f;
-                    vestController.Play(0.5f, 200f, 0.0005f, BodySide.both);
+                    vestController.Play(0.3f, 100f, 0.011f, BodySide.right);
                     Console.WriteLine("get D");
                     goto default;
                 case ConsoleKey.F:
                     temp.Intensity = 0.1f;
                     temp.Duration = 1f;
-                    vestController.Play(1f, 200f, 0.0001f, BodySide.both);
+                    vestController.Play(1f, 100f, 0.011f, BodySide.left);
+                    vestController.Play(0f, 100f, 0.011f, BodySide.left);
                     Console.WriteLine("get F");
                     goto default;
 

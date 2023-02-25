@@ -262,3 +262,4 @@ D:\DW\HCI\crosshaptics_gitfolder\bHapticsLibEndpoint\bin\Debug\System.Threading.
 D:\DW\HCI\crosshaptics_gitfolder\bHapticsLibEndpoint\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\DW\HCI\crosshaptics_gitfolder\bHapticsLibEndpoint\bin\Debug\System.ValueTuple.xml
 D:\DW\HCI\crosshaptics_gitfolder\bHapticsLibEndpoint\obj\Debug\bHapticsLibEndpoint.csproj.CopyComplete
+D:\DW\HCI\crosshaptics_gitfolder\bHapticsLibEndpoint\obj\Debug\bHapticsLibEndpoint.csproj.SuggestedBindingRedirects.cache

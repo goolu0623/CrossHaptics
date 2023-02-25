@@ -5,29 +5,44 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Globalization;
+using System.Xml.Serialization;
 using Valve.VR;
 using RedisEndpoint;
 using static OpenVRInputTest.VREventCallback;
-
 //Sources: https://github.com/BOLL7708/OpenVRInputTest
-namespace OpenVRInputTest {
+namespace OpenVRInputTest
+{
+    public class ProcConfig
+    {
+        public int DataUpdateRatePerSec = 333;
+    }
     class Program {
         public static Publisher publisher = new Publisher("localhost", 6379);
         public static string outletChannelName;
         public static float DataFrameRate = 90f;
         static ulong mActionSetHandle;
-        //static ulong mActionHandleLeftB, mActionHandleRightB, mActionHandleLeftA, mActionHandleRightA, mActionHandleChord1, mActionHandleChord2;
         static VRActiveActionSet_t[] mActionSetArray;
-        //static InputDigitalActionData_t[] mActionArray;
         static Controller rightController, leftController;
-        //public static Queue<string> output_data = new Queue<string>();
+        const string ConfigFileName = "Configs.xml";
+        static ProcConfig config;
+
+
         public static Queue<Tuple<DateTime, string, string>> output_data = new Queue<Tuple<DateTime, string, string>>();
         public static DateTime start_time = new DateTime(DateTime.MinValue.Ticks);
         public static Stopwatch sw = new Stopwatch();
-
         public static bool Is_Enabled = true;
+
+
         // # items are referencing this list of actions: https://github.com/ValveSoftware/openvr/wiki/SteamVR-Input#getting-started
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
+            var _XmlSerializer = new XmlSerializer(typeof(ProcConfig));
+            if (!File.Exists(ConfigFileName))
+                using (var stream = File.Create(ConfigFileName))
+                    _XmlSerializer.Serialize(stream, new ProcConfig());
+            config = (ProcConfig)_XmlSerializer.Deserialize(File.OpenRead(ConfigFileName));
+
+
             outletChannelName = args[0];
             // Initializing connection to OpenVR
             var error = EVRInitError.None;
@@ -40,25 +55,26 @@ namespace OpenVRInputTest {
             var writerThread = new Thread(Writer);
             writerThread.Priority = ThreadPriority.Normal;
 
+
             if (error != EVRInitError.None)
                 Utils.PrintError($"OpenVR initialization errored: {Enum.GetName(typeof(EVRInitError), error)}");
-            else {
+            else
+            {
                 Utils.PrintInfo("OpenVR initialized successfully.");
+
                 // Load app manifest, I think this is needed for the application to show up in the input bindings at all
                 Utils.PrintVerbose("Loading app.vrmanifest");
-                Console.WriteLine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetFullPath("app.vrmanifest")));
-                var appError = OpenVR.Applications.AddApplicationManifest(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetFullPath("app.vrmanifest")), false);
-                if (appError != EVRApplicationError.None)
+                var appError = OpenVR.Applications.AddApplicationManifest(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetFullPath("app.vrmanifest")), false); if (appError != EVRApplicationError.None)
                     Utils.PrintError($"Failed to load Application Manifest: {Enum.GetName(typeof(EVRApplicationError), appError)}");
-                else
+                else 
                     Utils.PrintInfo("Application manifest loaded successfully.");
 
                 // #3 Load action manifest
                 Utils.PrintVerbose("Loading actions.json");
                 var ioErr = OpenVR.Input.SetActionManifestPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetFullPath("actions.json")));
-                if (ioErr != EVRInputError.None)
+                if (ioErr != EVRInputError.None) 
                     Utils.PrintError($"Failed to load Action Manifest: {Enum.GetName(typeof(EVRInputError), ioErr)}");
-                else
+                else 
                     Utils.PrintInfo("Action Manifest loaded successfully.");
 
                 // #4 Get action handles
@@ -92,11 +108,10 @@ namespace OpenVRInputTest {
                     .AttachNewEvent(new Button_GripVector1_Event());
 
 
-
                 // #5 Get action set handle
                 Utils.PrintVerbose("Getting action set handle");
                 var errorAS = OpenVR.Input.GetActionSetHandle("/actions/default", ref mActionSetHandle);
-                if (errorAS != EVRInputError.None)
+                if (errorAS != EVRInputError.None) 
                     Utils.PrintError($"GetActionSetHandle Error: {Enum.GetName(typeof(EVRInputError), errorAS)}");
                 Utils.PrintDebug($"Action Set Handle default: {mActionSetHandle}");
 
@@ -114,16 +129,18 @@ namespace OpenVRInputTest {
 
             Utils.PrintWarning("Press key V to switch vibration mode");
             Utils.PrintWarning("Press enter to end the scripts");
+
+
             while (true) {
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 switch (key.Key) {
                     case ConsoleKey.V:
-                        if(Is_Enabled == true) {
-                            Utils.PrintWarning("Eable Vibration");
+                        if (Is_Enabled == true) {
+                            Utils.PrintWarning("Disable Vibration");
                             Is_Enabled = false;
                         }
                         else {
-                            Utils.PrintWarning("Disable Vibration");
+                            Utils.PrintWarning("Enable Vibration");
                             Is_Enabled = true;
                         }
                         break;
@@ -134,24 +151,30 @@ namespace OpenVRInputTest {
                         return;
                 }
             }
-
         }
 
-        private static void Worker() {
+        private static void Worker()
+        {
 
             sw.Start();
             Thread.CurrentThread.IsBackground = true;
             int RefreshRate = (int)(1000 / DataFrameRate);
-
-            // disable 用的東西
-
             ulong LeftVibration = 0, RightVibration = 0;
-            OpenVR.Input.GetActionHandle("/actions/default/out/haptic_left", ref LeftVibration);
+            OpenVR.Input.GetActionHandle("/actions/default/out/haptic_left", ref LeftVibration); 
             OpenVR.Input.GetActionHandle("/actions/default/out/haptic_right", ref RightVibration);
-
-
+            // #6 Update action set
+            if (mActionSetArray == null)
+            {
+                var actionSet = new VRActiveActionSet_t
+                {
+                    ulActionSet = mActionSetHandle,
+                    ulRestrictedToDevice = OpenVR.k_ulInvalidActionSetHandle,
+                    nPriority = 0
+                };
+                mActionSetArray = new VRActiveActionSet_t[] { actionSet };
+            }
             while (true) {
-                if (Is_Enabled) {
+                if (!Is_Enabled) {
                     // #6 Update action set
                     if (mActionSetArray == null) {
                         var actionSet = new VRActiveActionSet_t {
@@ -167,11 +190,11 @@ namespace OpenVRInputTest {
                     if (errorUAS != EVRInputError.None)
                         Utils.PrintError($"UpdateActionState Error: {Enum.GetName(typeof(EVRInputError), errorUAS)}");
 
-                    var errorLeftVibration = OpenVR.Input.TriggerHapticVibrationAction(LeftVibration, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
+                    var errorLeftVibration = OpenVR.Input.TriggerHapticVibrationAction(leftController.VibrationHandle, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
                     if (errorLeftVibration != EVRInputError.None)
                         Utils.PrintError($"Left Vibration Error: {Enum.GetName(typeof(EVRInputError), errorLeftVibration)}");
 
-                    var errorRightVibration = OpenVR.Input.TriggerHapticVibrationAction(RightVibration, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
+                    var errorRightVibration = OpenVR.Input.TriggerHapticVibrationAction(rightController.VibrationHandle, 0, 1000, 0, 0, OpenVR.k_ulInvalidInputValueHandle);
                     if (errorRightVibration != EVRInputError.None)
                         Utils.PrintError($"Right Vibration Error: {Enum.GetName(typeof(EVRInputError), errorRightVibration)}");
 
@@ -208,7 +231,7 @@ namespace OpenVRInputTest {
                             //leftController.DisableVibration(DeviceType, e.data.hapticVibration);
                             //rightController.DisableVibration(DeviceType, e.data.hapticVibration);
                         }
-    #if DEBUG
+#if DEBUG
                         if ((EVREventType)vrEvent.eventType != EVREventType.VREvent_None) {
                             var name = Enum.GetName(typeof(EVREventType), e.eventType);
                             var message = $"[{pid}] {name}";
@@ -226,7 +249,7 @@ namespace OpenVRInputTest {
                                 Utils.Print(message);
                         }
                         Utils.PrintWarning($"each");
-    #endif
+#endif
                     }
 
                     // #6 Update action set
@@ -250,14 +273,12 @@ namespace OpenVRInputTest {
                 }
             }
         }
-
-
         private static void Writer() {
             Thread.CurrentThread.IsBackground = true;
             while (true) {
                 if (output_data.Count != 0) {
                     Tuple<DateTime, string, string> temp;
-                    lock (output_data) {  
+                    lock (output_data) {
                         temp = output_data.Dequeue();
                     }
                     // ========時間格式==========
