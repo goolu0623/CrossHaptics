@@ -22,6 +22,8 @@ namespace bHapticsLibEndpoint {
         public static HeadObject HeadBoth;
         public static VestObject VestLeft5;
         public static VestObject VestRight5;
+        public static VestObject VestLeft6;
+        public static VestObject VestRight6;
 
 
         // bHapticLib連線
@@ -39,6 +41,9 @@ namespace bHapticsLibEndpoint {
             VestLeft4 = new VestObject("left_vest4", BodySide.left); // 1ms 會延伸震動的
             VestLeft5 = new VestObject("左浮動三顆正面", BodySide.left); // 1ms 
             VestRight5 = new VestObject("右浮動三顆正面", BodySide.right); // 1ms 
+
+            VestLeft6 = new VestObject("左浮動五顆正面", BodySide.left); // 1ms 
+            VestRight6 = new VestObject("右浮動五顆正面", BodySide.right); // 1ms 
 
             VestBoth = new VestObject("both_vest", BodySide.both); // 現在裡面是1ms
             HeadBoth = new HeadObject("both_head", BodySide.both); // 現在裡面是1ms
@@ -87,12 +92,12 @@ namespace bHapticsLibEndpoint {
             // 左右手的話 只有amp>0.9的會call近來, 在這邊我們做一個/3的強度的震動 避免它影響到主要的controller體驗
             // 另外為了避免震動小到背心跑不出來 很小的dur我們會取一個lower bound 小於0.01f的都直接call 0.01f
             else if (body_side == BodySide.left) {
-                ScaleOption scale_option = new ScaleOption(intensity: amp / 1, duration: System.Math.Max(dur,0.01f));
-                VestLeft5.haptic_pattern.Play(scale_option);
+                ScaleOption scale_option = new ScaleOption(intensity: amp / 3, duration: System.Math.Max(dur,0.01f) + 0.5f);
+                VestLeft6.haptic_pattern.Play(scale_option);
             }
             else if (body_side == BodySide.right) {
-                ScaleOption scale_option = new ScaleOption(intensity: amp / 1, duration: System.Math.Max(dur, 0.01f));
-                VestRight5.haptic_pattern.Play(scale_option);
+                ScaleOption scale_option = new ScaleOption(intensity: amp / 3, duration: System.Math.Max(dur, 0.01f) + 0.5f);
+                VestRight6.haptic_pattern.Play(scale_option);
             }
 
         }
