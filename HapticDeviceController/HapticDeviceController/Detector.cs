@@ -9,8 +9,11 @@ using System.Threading;
 namespace HapticDeviceController {
     class HapticEventsHandler {
 
+        #region 123
+        #endregion
+
         // 原本的??
-        private int DELAY_TIME_WINDOW = 10; // Delay time to detect symmetric signals
+        private int DELAY_TIME_WINDOW = 80; // Delay time to detect symmetric signals
 
 
         //bhapticslibs
@@ -58,7 +61,7 @@ namespace HapticDeviceController {
             // 檢查第一個有沒有跟人對稱
             lock (eventList) {
                 var iterate_node = eventList.First;
-                var nowEvent = iterate_node.Value;
+                var nowEvent = eventList.First.Value;
                 while (iterate_node.Next != null) {
                     var next_node = iterate_node.Next;
                     var nextEvent = next_node.Value;
@@ -77,6 +80,19 @@ namespace HapticDeviceController {
 
             return false;
         }
+        private bool IsDecreasing() {
+            lock (eventList) {
+                var nowEvent = eventList.First.Value;
+                foreach(var elem in eventList) {
+                    if(elem.Amplitude<nowEvent.Amplitude 
+                        && elem.Frequency == nowEvent.Frequency 
+                        && elem.Duration == nowEvent.Duration) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         public void Router(string msg) {
             // 解析msg
@@ -93,10 +109,6 @@ namespace HapticDeviceController {
                 Dur: state_info_list[5],
                 EnListTime: DateTime.Now
             );
-
-
-
-
             // add into eventList
             lock (eventList) {
                 eventList.AddLast(temp);
@@ -104,21 +116,13 @@ namespace HapticDeviceController {
 
         }
         
-        public bool Ischange = false; 
+        //public bool Ischange = false; 
         public void mainThread() {
-            //System.Threading.Thread.CurrentThread.IsBackground = true;
-            //bHapticsLib Vest Init
             vestController.Init();
 
             HapticEvent nowEvent; // 後面會一直用到 在這邊宣告應該比較不浪費宣告又release的時間
 
-
-
-
-
             while (true) {
-
-                
                 // 看list裡面的時間過期沒
                 while (eventList.Count() != 0) {
                     DateTime nowTime = DateTime.Now;
@@ -130,7 +134,7 @@ namespace HapticDeviceController {
 
 
 
-                    // 給個time window XX ms 看這個區間有沒有產生對稱震動
+                    // 給個time window XX ms 看這個區間有沒有產生對稱震動 這個區間太大的話會很誤觸到雙手對稱
                     if ((nowTime - nowEvent.EnListTime).TotalMilliseconds < DELAY_TIME_WINDOW)
                         break;
 
@@ -140,31 +144,42 @@ namespace HapticDeviceController {
                                 Console.WriteLine($"SYM  {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
                                 sym_pattern_1(ref nowEvent);
                             }
-                            else {
+                            // 單手是漸弱震動
+                            else if(IsDecreasing()){
                             // Console.WriteLine(eventTime + ": " + "None Amp = " + nowEvent.Amplitude + " Dur = " + nowEvent.Duration + " Freq = " + nowEvent.Frequency);
                             // send 原本controller震動 (這邊我們不disable的話可以do nothing, 就不用remap回去了)
                                 Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                                nonesym_pattern_1(ref nowEvent);
+                                nonsym_pattern_1(ref nowEvent);
+                            }
+                            // 單手是短促震動
+                            else {
+
+                                Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                                nonsym_pattern_1(ref nowEvent);
                             }
 
                         }
                         else{
-                            Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
-                            nonesym_pattern_1(ref nowEvent);
+                            if (IsDecreasing()) {
+                                Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                                nonsym_pattern_1(ref nowEvent);
+                            }
+                            else {
+                                Console.WriteLine($"NONE {nowEvent.EventDayTime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.SourceTypeName}|{nowEvent.Amplitude}|{nowEvent.Frequency}|{nowEvent.Duration}|{nowEvent.EventName}");
+                                nonsym_pattern_2(ref nowEvent);
+                            }
+
                         }
 
                     }
                     lock (eventList) {
                         eventList.RemoveFirst();
                     }
-                    //eventList.RemoveFirst();
-
-
                 }
-                // 睡個1ms再來一次 免得他一直跑 block掉其他人
-                // System.Threading.Thread.Sleep(1);
             }
         }
+
+        #region 震動pattern
 
         private void sym_pattern_1(ref HapticEvent nowEvent) {
             // 直接對應一模一樣的pattern到vest上
@@ -177,7 +192,29 @@ namespace HapticDeviceController {
             return;
         }
 
-        private void nonesym_pattern_1(ref HapticEvent nowEvent) {
+        private void nonsym_pattern_1(ref HapticEvent nowEvent) {
+            // 
+            if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "LeftController") {
+                vestController.Play(
+                    amp: nowEvent.Amplitude,
+                    freq: nowEvent.Frequency,
+                    dur: nowEvent.Duration,
+                    body_side: BodySide.left,
+                    temp:"Decrease"
+                );
+            }
+            else if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "RightController") {
+                vestController.Play(
+                    amp: nowEvent.Amplitude,
+                    freq: nowEvent.Frequency,
+                    dur: nowEvent.Duration,
+                    body_side: BodySide.right,
+                    temp: "Decrease"
+                );
+            }
+            return;
+        }
+        private void nonsym_pattern_2(ref HapticEvent nowEvent) {
             // 
             if (nowEvent.Amplitude > 0.9f && nowEvent.SourceTypeName == "LeftController") {
                 vestController.Play(
@@ -198,6 +235,10 @@ namespace HapticDeviceController {
             return;
         }
 
+        #endregion
+
+        #region 控制模式function
+
         public void Switch_Solution_Mode()
         {
             SYM_enabled = (SYM_enabled) ? false : true;
@@ -208,6 +249,8 @@ namespace HapticDeviceController {
             Vibration_enabled = (Vibration_enabled) ? false : true;
             Console.WriteLine("Vibration_enabled: " + Vibration_enabled);
         }
+
+        #endregion
 
         public bool KeyCheck() {
             if (!Console.KeyAvailable)
