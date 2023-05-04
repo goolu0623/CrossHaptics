@@ -1,3 +1,7 @@
 D:\DW\HCI\crosshaptics_gitfolder\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.csproj.AssemblyReference.cache
 D:\DW\HCI\crosshaptics_gitfolder\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.exe.config
 D:\DW\HCI\crosshaptics_gitfolder\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.csproj.CoreCompileInputs.cache
+C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.csproj.AssemblyReference.cache
+C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.csproj.SuggestedBindingRedirects.cache
+C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.exe.config
+C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticDevicePlugin\HapticDevicePlugin\obj\Debug\HapticDevicePlugin.csproj.CoreCompileInputs.cache

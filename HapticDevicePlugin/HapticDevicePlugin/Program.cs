@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using bHapticsLib;
 using RedisEndpoint;
+using HapticEventNS;
+using System.IO;
 
 namespace HapticDevicePlugin_HapticVest {
     class Program {
@@ -32,10 +35,17 @@ namespace HapticDevicePlugin_HapticVest {
         }
     }
     class HapticVestPlugin {
+        // bHapticLib連線
+        private static bHapticsConnection Connection;
+        string assembly_location = Path.GetDirectoryName(typeof(VestController).Assembly.Location);
+
+        // bHapticObject
+        public static VestObject VestLeft;
+
 
         private LinkedList<HapticEvent> eventList = new LinkedList<HapticEvent>();
         public HapticVestPlugin() {
-
+            // init bhaptics vest;
         }
         public void msg_handler(string type, string msg) {
             // 解析msg
@@ -50,47 +60,36 @@ namespace HapticDevicePlugin_HapticVest {
                 Amp: state_info_list[1],
                 Freq: state_info_list[3],
                 Dur: state_info_list[5],
-                EnListTime: DateTime.Now
-            );
+                EnListTime: DateTime.Now,
+                msg: msg
+            ); 
             // add into eventList
             lock (eventList) {
                 eventList.AddLast(temp);
             }
         }
         public void plugin_thread() {
+            while (true) {
+                if(eventList.Count > 0) { 
 
+                }
+            }
         }
 
     }
 
-    class HapticEvent {
-        // 性質
-        public float Duration; // 這三個基本資訊合起來是 channel 裡的 stateinfo 
-        public float Amplitude;
-        public float Frequency;
-        public DateTime EventDayTime;// new CultureInfo("en-US");
-
-        public string EventType;
-        public string EventTime;
-        public string EventName;
-        public string SourceTypeName;
-
-        public DateTime EnListTime;
-
-
-        public HapticEvent(string EventTime, string SourceTypeName, string EventType, string EventName, string Amp, string Freq, string Dur, DateTime EnListTime) {
-            this.Duration = Convert.ToSingle(Dur);
-            this.Amplitude = Convert.ToSingle(Amp);
-            this.Frequency = Convert.ToSingle(Freq);
-
-            this.EventDayTime = DateTime.Parse(EventTime, new CultureInfo("en-US"), DateTimeStyles.NoCurrentDateDefault);
-            this.EventTime = EventTime;
-            this.EventType = EventType;
-            this.EventName = EventName;
-            this.SourceTypeName = SourceTypeName;
-
-            this.EnListTime = EnListTime;
-
+    class VestObject {
+        public string name;
+        public string assembly_location;
+        public string tactfile_path { get; set; }
+        public HapticPattern haptic_pattern { get; set; }
+        public VestObject(string name) {
+            this.name = name;
+            this.assembly_location = Path.GetDirectoryName(typeof(VestController).Assembly.Location);
+            this.tactfile_path = Path.Combine(this.assembly_location, this.name + ".tact");
+            this.haptic_pattern = HapticPattern.LoadFromFile(this.name, this.tactfile_path);
         }
-    };
+    }
+
+
 }
