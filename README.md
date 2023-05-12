@@ -6,5 +6,18 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 
 
 ## How To Use
+1. git clone https://github.com/goolu0623/CrossHaptics.git
+1. Open GameSolution.sln with Visual Studio
+1. Restore NuGet Packages (if needed)
+1. Rebuild solution (Rebuild All)
+1. Connect all your devices (including VR devices and haptic devices)
+1. start the scripts and enjoy the game!
 
 ## How To Listen To Events With Your Own Haptic Devices Plugin.
+1. install redis and start the server.
+1. listen to the channel on local host
+  1. channel name = "symmetrical_event"
+  2. channel name = "nonsymmetrical_event"
+1. and you'll get the event in the following format.
+1. 
+
