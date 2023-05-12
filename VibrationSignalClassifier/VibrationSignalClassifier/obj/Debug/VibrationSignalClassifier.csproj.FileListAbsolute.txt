@@ -128,3 +128,5 @@ D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassi
 D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassifier\obj\Debug\VibrationSignalClassifier.csproj.CopyComplete
 D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassifier\obj\Debug\VibrationSignalClassifier.exe
 D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassifier\obj\Debug\VibrationSignalClassifier.pdb
+D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassifier\bin\Debug\HapticEvent.dll
+D:\DW\HCI\crosshaptics_gitfolder\VibrationSignalClassifier\VibrationSignalClassifier\bin\Debug\HapticEvent.pdb
