@@ -22,23 +22,15 @@ namespace HapticDevicePlugin_HapticVest {
             symmetrical_event_channel = "symmetrical_event";
             //nonsymmetrical_event_channel = args[1];
             nonsymmetrical_event_channel = "nonsymmetrical_event";
+
             symmetrical_event_subscriber.SubscribeTo(symmetrical_event_channel);
             nonsymmetrical_event_subscriber.SubscribeTo(nonsymmetrical_event_channel);
+
             symmetrical_event_subscriber.msgQueue.OnMessage(msg =>hapticVestPlugin.sym_msg_handler("sym",msg.Message));
             nonsymmetrical_event_subscriber.msgQueue.OnMessage(msg => hapticVestPlugin.non_sym_msg_handler("nonsym", msg.Message));
 
-            Thread plugin_thread = new Thread(hapticVestPlugin.plugin_thread);
-            plugin_thread.Start();
-            while (true) {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                switch (key.Key) {
-                    case ConsoleKey.Enter:
-                        plugin_thread.Abort();
-                        break;
-                    default:
-                        continue;
-                }
-            }
+            _ = Console.ReadKey();
+            return;
         }
     }
     class HapticVestPlugin {
@@ -50,10 +42,10 @@ namespace HapticDevicePlugin_HapticVest {
         public static VestObject VestLeft;
         public static VestObject VestRight;
         public static VestObject VestBoth;
+        private static ScaleOption scaleOption = new ScaleOption();  
 
-
-        private LinkedList<HapticEvent> sym_eventList = new LinkedList<HapticEvent>();
-        private LinkedList<HapticEvent> non_sym_eventList = new LinkedList<HapticEvent>();
+        //private LinkedList<HapticEvent> sym_eventList = new LinkedList<HapticEvent>();
+        //private LinkedList<HapticEvent> non_sym_eventList = new LinkedList<HapticEvent>();
         public HapticVestPlugin() {
             // init bhaptics vest;
             VestLeft = new VestObject("左浮動五顆正面");
@@ -89,15 +81,24 @@ namespace HapticDevicePlugin_HapticVest {
                 Dur: state_info_list[5],
                 EnListTime: DateTime.Now,
                 msg: msg
-            ); 
-            // add into eventList
-            lock (sym_eventList) {
-                sym_eventList.AddLast(temp);
+            );
+            if (temp.get_amplitude > 0.8f) {
+                switch (temp.get_source_type_name) {
+                    case "1":
+                        ScaleOption scaleOption = new ScaleOption();
+                        scaleOption.Duration = temp.get_duration;
+                        scaleOption.Intensity = temp.get_amplitude;
+                        VestBoth.haptic_pattern.Play(scaleOption);
+                        break;
+                    default:
+                        Console.WriteLine("wrong non symmetrical event to the vest");
+                        break;
+                }
             }
         }
         public void non_sym_msg_handler(string type, string msg) {
             // 解析msg
-            Console.WriteLine(type + msg);
+            Console.WriteLine(type + " " + msg);
             string[] haptic_event_info_lists = msg.Split('|');
             string[] state_info_list = haptic_event_info_lists[4].Split(' ');
             // 做成HapticEvent
@@ -112,44 +113,52 @@ namespace HapticDevicePlugin_HapticVest {
                 EnListTime: DateTime.Now,
                 msg: msg
             );
-            // add into eventList
-            lock (non_sym_eventList) {
-                non_sym_eventList.AddLast(temp);
-            }
-
-        }
-        public void plugin_thread() {
-            HapticEvent nowEvent;
-            while (true) {
-                if(sym_eventList.Count > 0) {
-                    lock (sym_eventList) {
-                        nowEvent = sym_eventList.First();
-                    }
-                    ScaleOption sclaleoption = new ScaleOption();
-                    sclaleoption.Intensity = nowEvent.get_amplitude;
-                    sclaleoption.Duration = nowEvent.get_duration + 0.2f;
-                    VestBoth.haptic_pattern.Play(sclaleoption);
-                    Console.WriteLine("vibrate both");
-                    lock (sym_eventList) {
-                        sym_eventList.RemoveFirst();
-                    }
-                }
-                if (non_sym_eventList.Count > 0) {
-                    lock (non_sym_eventList) {
-                        nowEvent = non_sym_eventList.First();
-                    }
-                    ScaleOption sclaleoption = new ScaleOption();
-                    sclaleoption.Intensity = nowEvent.get_amplitude/3;
-                    sclaleoption.Duration = nowEvent.get_duration + 0.2f;
-                    VestLeft.haptic_pattern.Play(sclaleoption);
-                    Console.WriteLine("vibrate left");
-                    lock (non_sym_eventList) {
-                        non_sym_eventList.RemoveFirst();
-                    }
-
+            if (temp.get_amplitude > 0.8f) {
+                switch (temp.get_source_type_name) {
+                    case "1":
+                        VestLeft.haptic_pattern.Play();
+                        break;
+                    case "2":
+                        VestRight.haptic_pattern.Play();
+                        break;
+                    default:
+                        Console.WriteLine("wrong non symmetrical event to the vest");
+                        break;
                 }
             }
         }
+        //public void plugin_thread() {
+        //    HapticEvent nowEvent;
+        //    while (true) {
+        //        if(sym_eventList.Count > 0) {
+        //            lock (sym_eventList) {
+        //                nowEvent = sym_eventList.First();
+        //            }
+        //            ScaleOption sclaleoption = new ScaleOption();
+        //            sclaleoption.Intensity = nowEvent.get_amplitude;
+        //            sclaleoption.Duration = nowEvent.get_duration + 0.2f;
+        //            VestBoth.haptic_pattern.Play(sclaleoption);
+        //            Console.WriteLine("vibrate both");
+        //            lock (sym_eventList) {
+        //                sym_eventList.RemoveFirst();
+        //            }
+        //        }
+        //        if (non_sym_eventList.Count > 0) {
+        //            lock (non_sym_eventList) {
+        //                nowEvent = non_sym_eventList.First();
+        //            }
+        //            ScaleOption sclaleoption = new ScaleOption();
+        //            sclaleoption.Intensity = nowEvent.get_amplitude/3;
+        //            sclaleoption.Duration = nowEvent.get_duration + 0.2f;
+        //            VestLeft.haptic_pattern.Play(sclaleoption);
+        //            Console.WriteLine("vibrate left");
+        //            lock (non_sym_eventList) {
+        //                non_sym_eventList.RemoveFirst();
+        //            }
+
+        //        }
+        //    }
+        //}
 
     }
 
