@@ -1,0 +1,7 @@
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\bin\Debug\CrossHapticsStarter.exe.config
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\bin\Debug\CrossHapticsStarter.exe
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\bin\Debug\CrossHapticsStarter.pdb
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\obj\Debug\CrossHapticsLauncher.csproj.AssemblyReference.cache
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\obj\Debug\CrossHapticsLauncher.csproj.CoreCompileInputs.cache
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\obj\Debug\CrossHapticsStarter.exe
+D:\DW\HCI\crosshaptics_gitfolder\CrossHapticsStarter\CrossHapticsStarter\obj\Debug\CrossHapticsStarter.pdb
