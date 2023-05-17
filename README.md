@@ -24,6 +24,7 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 1. and you'll get the event in the following format.
 1. 
 ```
+using RedisEndpoint;
 void sample(){
   Subscriber exampleSubscriber = new Subscriber("localhost", 6379);
   string subscribeChannelName = "symmetrical_event"; \\ here subscribe to symmetrical_event or nonsymmectrical_event
@@ -38,7 +39,6 @@ void msgHandler(string msg){
 
   \\ play your device here
   
-
 }
 ```
 ### python
