@@ -13,6 +13,8 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 1. Open CrossHaptics.sln with Visual Studio
  
 1. [install redis](https://redis.io/docs/getting-started/installation/) and start the server.
+
+    ![](https://i.imgur.com/rHxfc72.png)
 1. Restore NuGet Packages (if needed)
 
     ![](https://i.imgur.com/xvu1SBr.png)
@@ -35,7 +37,6 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
     1. RedisEndpoint_donetCore if you are using .NET core
 
     ![](https://i.imgur.com/safzr2c.png)
-
 1. add RedisEndpoint as reference
 
     ![](https://i.imgur.com/vhFqTvv.png)
