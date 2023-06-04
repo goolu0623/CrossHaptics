@@ -127,30 +127,38 @@ namespace OpenVRInputTest
                     Utils.PrintError("Could not start writer thread.");
             }
 
-            Utils.PrintWarning("Press key V to switch vibration mode");
-            Utils.PrintWarning("Press enter to end the scripts");
+
+            Console.Read();
+            workerThread.Abort();
+            writerThread.Abort();
+            OpenVR.Shutdown();
+            return;
+
+            //########################################## console form with disable key##############################
+            //Utils.PrintWarning("Press key V to switch vibration mode");
+            //Utils.PrintWarning("Press enter to end the scripts");
 
 
-            while (true) {
-                ConsoleKeyInfo key = Console.ReadKey(true);
-                switch (key.Key) {
-                    case ConsoleKey.V:
-                        if (Is_Enabled == true) {
-                            Utils.PrintWarning("Disable Vibration");
-                            Is_Enabled = false;
-                        }
-                        else {
-                            Utils.PrintWarning("Enable Vibration");
-                            Is_Enabled = true;
-                        }
-                        break;
-                    case ConsoleKey.Enter:
-                        workerThread.Abort();
-                        writerThread.Abort();
-                        OpenVR.Shutdown();
-                        return;
-                }
-            }
+            //while (true) {
+            //    ConsoleKeyInfo key = Console.ReadKey(true);
+            //    switch (key.Key) {
+            //        case ConsoleKey.V:
+            //            if (Is_Enabled == true) {
+            //                Utils.PrintWarning("Disable Vibration");
+            //                Is_Enabled = false;
+            //            }
+            //            else {
+            //                Utils.PrintWarning("Enable Vibration");
+            //                Is_Enabled = true;
+            //            }
+            //            break;
+            //        case ConsoleKey.Enter:
+            //            workerThread.Abort();
+            //            writerThread.Abort();
+            //            OpenVR.Shutdown();
+            //            return;
+            //    }
+            //}
         }
 
         private static void Worker()

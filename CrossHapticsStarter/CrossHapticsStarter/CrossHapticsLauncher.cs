@@ -12,9 +12,9 @@ namespace CrossHapticsLauncher {
             Process capturerProcess = new Process();
             Process classifierProcess = new Process();
             string filePath=Directory.GetCurrentDirectory();
-                for(int i = 0; i < 4; i++) {
-                    filePath = Directory.GetParent(filePath).FullName;
-                }
+            for(int i = 0; i < 4; i++) {
+                filePath = Directory.GetParent(filePath).FullName;
+            }
             string capturerPath = Path.Combine(filePath + "\\OpenVRInputTest\\OpenVRInputTest\\bin\\Release\\OpenVRInputTest.exe");
             string classifierPath = Path.Combine(filePath + "\\VibrationSignalClassifier\\VibrationSignalClassifier\\bin\\Release\\VibrationSignalClassifier.exe");
             //string capturerPath = "D:\\DW\\HCI\\crosshaptics_gitfolder\\OpenVRInputTest\\OpenVRInputTest\\bin\\Release\\OpenVRInputTest.exe";

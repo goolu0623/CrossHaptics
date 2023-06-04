@@ -29,7 +29,7 @@ namespace HapticDevicePlugin_HapticVest {
             symmetrical_event_subscriber.msgQueue.OnMessage(msg =>hapticVestPlugin.sym_msg_handler("sym",msg.Message));
             nonsymmetrical_event_subscriber.msgQueue.OnMessage(msg => hapticVestPlugin.non_sym_msg_handler("nonsym", msg.Message));
 
-            _ = Console.ReadKey();
+            _ = Console.Read();
             return;
         }
     }

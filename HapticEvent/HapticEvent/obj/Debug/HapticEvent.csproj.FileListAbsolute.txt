@@ -4,9 +4,3 @@ C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\Hapti
 C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.csproj.CoreCompileInputs.cache
 C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.dll
 C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.pdb
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\bin\Debug\HapticEvent.dll
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\bin\Debug\HapticEvent.pdb
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\obj\Debug\HapticEvent.csproj.AssemblyReference.cache
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\obj\Debug\HapticEvent.csproj.CoreCompileInputs.cache
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\obj\Debug\HapticEvent.dll
-D:\DW\HCI\crosshaptics_gitfolder\HapticEvent\HapticEvent\obj\Debug\HapticEvent.pdb
