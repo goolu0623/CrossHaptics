@@ -285,22 +285,24 @@ namespace OpenVRInputTest
             Thread.CurrentThread.IsBackground = true;
             while (true) {
                 if (output_data.Count != 0) {
-                    Tuple<DateTime, string, string> temp;
+                    Tuple<DateTime, string, string> data;
                     lock (output_data) {
-                        temp = output_data.Dequeue();
+                        data = output_data.Dequeue();
                     }
                     // ========時間格式==========
                     CultureInfo ci = new CultureInfo("en-US");
-                    string EventTimeForAnalyze = temp.Item1.ToString("MM/dd HH:mm:ss.fff", ci) + "  :"; // 分析資料用 所以把fff(毫秒特別拉出來)
-                    string EventTimeForCrossHaptics = temp.Item1.ToString(ci); // 玩遊戲用的話精度不用那麼高 用標準格式比較好處理
+                    string EventTimeForAnalyze = data.Item1.ToString("MM/dd HH:mm:ss.fff", ci); // 分析資料用 所以把fff(毫秒特別拉出來)
+                    string EventTimeForCrossHaptics = data.Item1.ToString(ci); // 玩遊戲用的話精度不用那麼高 用標準格式比較好處理
                     //LogWriterTest.LogWriter.LogWrite(EventTimeForAnalyze + temp.Item2, "console.txt"); // 如果要寫進log做資料分析
                     // ========時間格式==========
 
                     // ========redis publish==========
                     if (Program.outletChannelName != null) {
-                        if (temp.Item3 == "Output") { // controller的資料
-                            Program.publisher.Publish(Program.outletChannelName, $"{EventTimeForCrossHaptics}|{temp.Item2}"); // pub到redis 給其他script吃
-                            Utils.PrintDebug(EventTimeForAnalyze + temp.Item2);
+                        if (data.Item3 == "Output") { // controller的資料
+                            Program.publisher.Publish(Program.outletChannelName, $"{EventTimeForAnalyze} {data.Item2}"); // pub到redis 給其他script吃
+#if DEBUG
+                            Utils.PrintDebug(EventTimeForAnalyze + data.Item2);
+#endif
                         }
                     }
                     // ========redis publish==========

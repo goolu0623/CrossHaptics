@@ -1,6 +1,0 @@
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\bin\Debug\HapticEvent.dll
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\bin\Debug\HapticEvent.pdb
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.csproj.AssemblyReference.cache
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.csproj.CoreCompileInputs.cache
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.dll
-C:\Users\DW\Desktop\NTU\HCI\CrossHaptics\HapticEvent\HapticEvent\obj\Debug\HapticEvent.pdb

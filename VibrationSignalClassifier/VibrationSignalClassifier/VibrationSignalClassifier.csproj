@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HapticEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -111,10 +112,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HapticEvent\HapticEvent\HapticEvent.csproj">
-      <Project>{6637f56f-4ad6-446e-8b73-bfab140732d5}</Project>
-      <Name>HapticEvent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\RedisEndpoint_dotnetFramework\RedisEndpoint_dotnetFramework.csproj">
       <Project>{668FE0F4-ECE8-490E-9FFD-56192A3D810A}</Project>
       <Name>RedisEndpoint_dotnetFramework</Name>

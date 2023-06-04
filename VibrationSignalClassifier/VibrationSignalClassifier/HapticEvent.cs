@@ -2,8 +2,7 @@
 using System.Globalization;
 
 
-namespace HapticEventNS
-{
+namespace VibrationSignalClassifier {
     public class HapticEvent {
         private readonly float duration_; // 這三個基本資訊合起來是 channel 裡的 stateinfo 
         private readonly float amplitude_;

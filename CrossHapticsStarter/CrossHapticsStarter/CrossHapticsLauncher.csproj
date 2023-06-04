@@ -17,7 +17,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -50,6 +50,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenVRInputTest\OpenVRInputTest\OpenVRInputTest.csproj">
+      <Project>{a792cdbc-7877-407d-90b2-364335dabf4a}</Project>
+      <Name>OpenVRInputTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RedisEndpoint_dotnetFramework\RedisEndpoint_dotnetFramework.csproj">
+      <Project>{668fe0f4-ece8-490e-9ffd-56192a3d810a}</Project>
+      <Name>RedisEndpoint_dotnetFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VibrationSignalClassifier\VibrationSignalClassifier\VibrationSignalClassifier.csproj">
+      <Project>{3ecbe4cf-8511-41c5-9a71-55c27e3f1d71}</Project>
+      <Name>VibrationSignalClassifier</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

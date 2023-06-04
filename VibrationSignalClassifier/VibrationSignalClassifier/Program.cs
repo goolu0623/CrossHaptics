@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using HapticEventNS;
 using RedisEndpoint;
 
-namespace vibration_signal_classifier {
+namespace VibrationSignalClassifier {
 
 
     class Program {
@@ -60,18 +59,28 @@ namespace vibration_signal_classifier {
         }
         public static void msg_Handler(string msg) {
             // 解析msg
-            string[] haptic_event_info_lists = msg.Split('|');
-            string[] state_info_list = haptic_event_info_lists[4].Split(' ');
-            // 做成HapticEvent
-            //Console.WriteLine(msg);
+            // msg sample:
+            // 06/04 21:05:56.644 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
+            string[] haptic_event_info_lists = msg.Split(' ');
+
+#if DEBUG
+            Console.WriteLine(msg);
+            //Console.WriteLine("EventTime " + haptic_event_info_lists[1]);
+            //Console.WriteLine("SourceTypeName " + haptic_event_info_lists[2]);
+            //Console.WriteLine("EventType " + haptic_event_info_lists[3]);
+            //Console.WriteLine("EventName " + haptic_event_info_lists[4]);
+            //Console.WriteLine("Amp " + haptic_event_info_lists[6]);
+            //Console.WriteLine("Freq " + haptic_event_info_lists[8]);
+            //Console.WriteLine("Dur " + haptic_event_info_lists[10]);
+#endif
             HapticEvent temp = new HapticEvent(
-                EventTime: haptic_event_info_lists[0],
-                SourceTypeName: haptic_event_info_lists[1],
-                EventType: haptic_event_info_lists[2],
-                EventName: haptic_event_info_lists[3],
-                Amp: state_info_list[1],
-                Freq: state_info_list[3],
-                Dur: state_info_list[5],
+                EventTime: haptic_event_info_lists[1],
+                SourceTypeName: haptic_event_info_lists[2],
+                EventType: haptic_event_info_lists[3],
+                EventName: haptic_event_info_lists[4],
+                Amp: haptic_event_info_lists[6],
+                Freq: haptic_event_info_lists[8],
+                Dur: haptic_event_info_lists[10],
                 EnListTime: DateTime.Now,
                 msg: msg
             ); 
@@ -96,12 +105,13 @@ namespace vibration_signal_classifier {
                     if ((nowTime - nowEvent.get_enter_list_daytime).TotalMilliseconds < k_DELAY_TIME_WINDOW)
                         break;
                     if (IsSymmetric()) {
-                        Console.WriteLine($"SYM  {nowEvent.get_event_daytime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.get_source_type_name}|{nowEvent.get_amplitude}|{nowEvent.get_freqeuncy}|{nowEvent.get_duration}|{nowEvent.get_event_name}");
+                        Console.WriteLine("SYM " + nowEvent.get_msg);
                         symmetrical_event_publisher.Publish("symmetrical_event", nowEvent.get_msg);
                     }
                     else {
-                        Console.WriteLine($"NONE {nowEvent.get_event_daytime.ToString("MM/dd HH:mm:ss.fff", new CultureInfo("en-US")) + "  :"}|{nowEvent.get_source_type_name}|{nowEvent.get_amplitude}|{nowEvent.get_freqeuncy}|{nowEvent.get_duration}|{nowEvent.get_event_name}");
+                        Console.WriteLine("NONE " + nowEvent.get_msg);
                         nonsymmetrical_event_publisher.Publish("nonsymmetrical_event", nowEvent.get_msg);
+
                     }
                     // 05/11 06:43:52.024  :RightController|Output|Vibration|Amp 0.1600 Freq 1.0000 Duration 0.0000
                     // NONE 05 / 11 06:46:35.000  :| RightController | 0.16 | 1 | 0 | Vibration

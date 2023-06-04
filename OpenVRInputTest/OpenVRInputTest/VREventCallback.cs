@@ -30,7 +30,7 @@ namespace OpenVRInputTest {
             string EventTime = DateTime.Now.ToString("MM/dd HH:mm:ss.fff", ci) + "  :"; // 分析資料用
             EventTime = DateTime.Now.ToString(ci); // 玩遊戲用
             lock (output_data) {
-                output_data.Enqueue(Tuple.Create(DateTime.Now, $"{SourceTypeName}|{EventType}|{EventName}|{StateInfo}", EventType));
+                output_data.Enqueue(Tuple.Create(DateTime.Now, $"{SourceTypeName} {EventType} {EventName} {StateInfo}", EventType));
             }
             // **************** 收數據的時候用的格式 ***************//
 
