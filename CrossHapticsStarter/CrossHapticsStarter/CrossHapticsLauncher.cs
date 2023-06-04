@@ -16,27 +16,35 @@ namespace CrossHapticsLauncher {
                 filePath = Directory.GetParent(filePath).FullName;
             }
 
-            string capturerPath = Path.Combine(filePath + "\\OpenVRInputTest\\OpenVRInputTest\\bin\\RELEASE\\OpenVRInputTest.exe");
-            string classifierPath = Path.Combine(filePath + "\\VibrationSignalClassifier\\VibrationSignalClassifier\\bin\\RELEASE\\VibrationSignalClassifier.exe");
+            string capturerPath;
+            string classifierPath;
 #if DEBUG
             capturerPath = Path.Combine(filePath + "\\OpenVRInputTest\\OpenVRInputTest\\bin\\DEBUG\\OpenVRInputTest.exe");
             classifierPath = Path.Combine(filePath + "\\VibrationSignalClassifier\\VibrationSignalClassifier\\bin\\DEBUG\\VibrationSignalClassifier.exe");
+#endif
+#if !DEBUG
+            classifierProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            capturerProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            capturerPath = Path.Combine(filePath + "\\OpenVRInputTest\\OpenVRInputTest\\bin\\RELEASE\\OpenVRInputTest.exe");
+            classifierPath = Path.Combine(filePath + "\\VibrationSignalClassifier\\VibrationSignalClassifier\\bin\\RELEASE\\VibrationSignalClassifier.exe");
 #endif
             //string capturerPath = "D:\\DW\\HCI\\crosshaptics_gitfolder\\OpenVRInputTest\\OpenVRInputTest\\bin\\Release\\OpenVRInputTest.exe";
             capturerProcess.StartInfo.FileName= capturerPath;
             capturerProcess.StartInfo.Arguments = "test";
             //capturerProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             bool result = capturerProcess.Start();
-            Console.WriteLine(result);
+            Console.WriteLine("capturer start: "+ result);
 
             //string classifierPath = "D:\\DW\\HCI\\crosshaptics_gitfolder\\VibrationSignalClassifier\\VibrationSignalClassifier\\bin\\Debug\\VibrationSignalClassifier.exe";
             classifierProcess.StartInfo.FileName = classifierPath;
             classifierProcess.StartInfo.Arguments = "test";
             //classifierProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             bool result2 = classifierProcess.Start();
-            Console.WriteLine(result2);
+            Console.WriteLine("classifier start: " + result2);
+
             Console.WriteLine("Press Any Key To Stop All The Scripts");
             Console.ReadLine();
+
             //classifierProcess.CloseMainWindow();
             //capturerProcess.CloseMainWindow();
             classifierProcess.Kill();

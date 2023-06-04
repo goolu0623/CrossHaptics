@@ -45,7 +45,7 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 1. add RedisEndpoint as reference
 
     <img src="https://i.imgur.com/vhFqTvv.png" width="700">
-1. install StackExchange.REDIS in NUGET manage store
+1. install StackExchange.REDIS in NUGET manage store (project sample using Version 2.1.58)
 
     <img src="https://i.imgur.com/tb86GxK.png" width="700">
 1. listen to the channel on local host 6379/6380(or whatever the redis port you select) as the example below
