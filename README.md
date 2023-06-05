@@ -67,7 +67,7 @@ namespace SampleHapticDevicePlugin
 {
     public class Program
     {
-        private ScaleOption scale_option = new ScaleOption();
+        private ScaleOption scaleOption = new ScaleOption();
         private HapticPattern hapticFeedback;
         
         private void Main(){
@@ -94,16 +94,16 @@ namespace SampleHapticDevicePlugin
 
         void msgHandler(string msg){
             // msg example as below
-            // 06:43:52.024 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
+            // 06/04 21:05:56.644 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
             // seperate the information you need
-            string [] EventMessage = msg.Split(' ');
-            string  Amp = EventMessage[5];
-            string  Dur = EventMessage[9];
+            string [] eventMessage = msg.Split(' ');
+            string  amp = eventMessage[6];
+            string  dur = eventMessage[10];
             
             // play aroudn with your device here
-            scale_option.Duration = Convert.ToSingle(Dur);
-            scale_option.Intensity = Convert.ToSingle(Amp);
-            hapticFeedback.Play(scale_option);
+            scaleOption.Duration = Convert.ToSingle(dur);
+            scaleOption.Intensity = Convert.ToSingle(amp);
+            hapticFeedback.Play(scaleOption);
         }
     }
 }
@@ -183,11 +183,11 @@ namespace SampleHapticDevicePlugin
 
         void msgHandler(string message) {
             // msg example as below
-            // 06:43:52.024 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
+            // 06/04 21:05:56.644 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
             // seperate the information you need
             string [] EventMessage = msg.Split(' ');
-            string  Amp = EventMessage[5];
-            string  Dur = EventMessage[9];
+            string  amp = eventMessage[6];
+            string  dur = eventMessage[10];
             
             // play around with your device here
 
