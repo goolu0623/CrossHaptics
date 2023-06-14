@@ -1,11 +1,19 @@
 # CrossHaptics: Enabling Real-time Multi-device Haptic Feedback for VR Games via Controller Vibration Pattern Analysis
 ![Teaser Figure](https://i.imgur.com/T3jK4ZA.png)
 
+
+
+
 ## Overview
 We presented CrossHaptics, which explores how controller vibration patterns designed by game developers can be used to enable support for additional haptic devices, proposed a framework that automatically detects asymmetrical and symmetrical vibration signals to infer localized vs. full-body haptic events in real-time and provided a plugin architecture to simplify adding support for additional haptic devices.
 
+<br />
+<br />
+<br />
 
-# How To Use 
+
+
+# How To Use (for non-developer)
 1. clone the project from github
     ```
     git clone https://github.com/goolu0623/CrossHaptics.git
@@ -14,7 +22,8 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 
     <img src="https://i.imgur.com/rHxfc72.png" width="700">
 
-1. Open CrossHaptics.sln with Visual Studio
+1. Open CrossHaptics.sln with Visual Studio version <span style="color:red">4.6.1</span> (need to update all the related packages to the corresponding version if not using version 4.6.1)
+    1. use Visual Studio Installer to get the correct version and the 
  
 
 1. Restore NuGet Packages (if needed)
@@ -29,7 +38,9 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
     1. Hatpic devices(sample)
 
 
-1. Start the scripts and enjoy the game!
+1. Launch the scripts and enjoy the game!
+    1. You can saw every components and script window if you launch with <span style="color:red">DEBUG</span> mode
+    1. You may <span style="color:red">hide</span> all the information (if you don't care) with <span style="color:red">RELEASE</span> mode
 
 # How To Listen To Events With Your Own Haptic Devices Plugin.
 ## redis installation
@@ -92,13 +103,27 @@ namespace SampleHapticDevicePlugin
             return;
         }
 
+
+        
+        // whenever this component received a msg from the corrseponding channel
+        // this function will be run once to handle the message 
         void msgHandler(string msg){
             // msg example as below
             // 06/04 21:05:56.644 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
             // seperate the information you need
             string [] eventMessage = msg.Split(' ');
-            string  amp = eventMessage[6];
-            string  dur = eventMessage[10];
+            string date = eventMessage[0];
+            string time = eventMessage[1];
+            string sourceTypeName = eventMessage[2]; // RightController / LeftController
+            // according to OpenVR API: https://valvesoftware.github.io/steamvr_unity_plugin/api/Valve.VR.ISteamVR_Action_Vibration.html
+            // |Name        |Description                                                                                |
+            // |------------|-------------------------------------------------------------------------------------------|
+            // |duration    |How long the haptic action should last (in seconds)                                        |
+            // |frequency   |How often the haptic motor should bounce (0 - 320 in hz. The lower end being more useful)  |
+            // |amplitude   |How intense the haptic action should be (0 - 1)                                            |
+            string amp = eventMessage[6]; 
+            string freq = eventMessage[8];
+            string dur = eventMessage[10];
             
             // play aroudn with your device here
             scaleOption.Duration = Convert.ToSingle(dur);
@@ -166,14 +191,15 @@ namespace SampleHapticDevicePlugin
     public class redis_code_sample : MonoBehaviour
     {
         Subscriber subscriber;
-        string testChannelName = "test";
+        string subscribeChannelName = "nonsymmetrical_event"; // here subscribe to symmetrical_event or nonsymmectrical_event
+
         string url = "localhost";
         ushort port = 6379;
         void Start()
         {
             subscriber = new Subscriber(url, port);
-            subscriber.SubscribeTo(testChannelName);
-            subscriber.msgQueue.OnMessage(msg => msgHandler(msg.Message));
+            subscriber.SubscribeTo(subscribeChannelName);
+            subscriber.msgQueue.OnMessage(msg => OnMsgEnter(msg.Message));
         }
 
         // Update is called once per frame
@@ -181,16 +207,31 @@ namespace SampleHapticDevicePlugin
         {
         }
 
-        void msgHandler(string message) {
+        
+        // whenever this component received a msg from the corrseponding channel
+        // this function will be run once to handle the message 
+        void OnMsgEnter(string message) {
+            
+
             // msg example as below
             // 06/04 21:05:56.644 RightController Output Vibration Amp 0.1600 Freq 1.0000 Duration 0.0000
             // seperate the information you need
-            string [] EventMessage = msg.Split(' ');
-            string  amp = eventMessage[6];
-            string  dur = eventMessage[10];
+            string [] eventMessage = msg.Split(' ');
+            string date = eventMessage[0];
+            string time = eventMessage[1];
+            string sourceTypeName = eventMessage[2]; // RightController / LeftController
+            // according to OpenVR API: https://valvesoftware.github.io/steamvr_unity_plugin/api/Valve.VR.ISteamVR_Action_Vibration.html
+            // |Name        |Description                                                                                |
+            // |------------|-------------------------------------------------------------------------------------------|
+            // |duration    |How long the haptic action should last (in seconds)                                        |
+            // |frequency   |How often the haptic motor should bounce (0 - 320 in hz. The lower end being more useful)  |
+            // |amplitude   |How intense the haptic action should be (0 - 1)                                            |
+            string amp = eventMessage[6]; 
+            string freq = eventMessage[8];
+            string dur = eventMessage[10];
             
             // play around with your device here
-
+            Debug.Log("device actuated");
         }
     }
 
