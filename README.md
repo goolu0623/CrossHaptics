@@ -33,7 +33,7 @@ For those non-developer, we've implement a sample device plugin with bHaptics ta
 
     <img src="https://i.imgur.com/rHxfc72.png" width="700">
 
-1. Open CrossHaptics.sln with Visual Studio version <span style="color:red">4.6.1</span> (need to update all the related packages to the corresponding version if not using version 4.6.1)
+1. Open CrossHaptics.sln inside CrossHapticStarter with Visual Studio version <span style="color:red">4.6.1</span> (need to update all the related packages to the corresponding version if not using version 4.6.1)
     1. use Visual Studio Installer to get the correct version as the following steps
     <img src="https://imgur.com/oBUyHQC.png" width="700">
     <img src="https://imgur.com/3sF9QJS.png" width="700">
