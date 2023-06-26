@@ -15,6 +15,7 @@ We encapsulate CrossHaptics into two components, CrossHaptics Launcher and Hapti
 In this components, we listen to the VR controllers signal using OpenVR api (eg. Oculus, Vive Pro), and classify the signal into symmetrical and asymmetrical signals according to the characteristics and send 
 
 ## Haptic Device Plugin
+We provide a sample device plugin using bhaptics TactSuit and Tactosy for Arms for user to understand how it works.
 
 <br />
 <br />
