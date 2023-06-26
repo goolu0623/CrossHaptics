@@ -7,6 +7,15 @@
 ## Overview
 We presented CrossHaptics, which explores how controller vibration patterns designed by game developers can be used to enable support for additional haptic devices, proposed a framework that automatically detects asymmetrical and symmetrical vibration signals to infer localized vs. full-body haptic events in real-time and provided a plugin architecture to simplify adding support for additional haptic devices.
 
+We encapsulate CrossHaptics into two components, CrossHaptics Launcher and Haptic Device Plugin, and implement both of the sample code with C# .NET framework.
+
+<img src="https://imgur.com/a18LCzT.png" width="700">
+
+## CrossHaptics Launcher
+In this components, we listen to the VR controllers signal using OpenVR api (eg. Oculus, Vive Pro), and classify the signal into symmetrical and asymmetrical signals according to the characteristics and send 
+
+## Haptic Device Plugin
+
 <br />
 <br />
 <br />
@@ -14,6 +23,7 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 
 
 # How To Use (for non-developer)
+For those non-developer, we've implement a sample device plugin with bHaptics tacsuit and tactal. User may follow the instructions to integrate the haptic feedback devices with commercial games easily! 
 1. clone the project from github
     ```
     git clone https://github.com/goolu0623/CrossHaptics.git
@@ -23,8 +33,9 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
     <img src="https://i.imgur.com/rHxfc72.png" width="700">
 
 1. Open CrossHaptics.sln with Visual Studio version <span style="color:red">4.6.1</span> (need to update all the related packages to the corresponding version if not using version 4.6.1)
-    1. use Visual Studio Installer to get the correct version and the 
- 
+    1. use Visual Studio Installer to get the correct version as the following steps
+    <img src="https://imgur.com/oBUyHQC.png" width="700">
+    <img src="https://imgur.com/3sF9QJS.png" width="700">
 
 1. Restore NuGet Packages (if needed)
 
@@ -38,16 +49,19 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
     1. Hatpic devices(sample)
 
 
-1. Launch the scripts and enjoy the game!
+1. Launch the scripts and repeat the same steps with "HapticDeviceSamplePlugin"
     1. You can saw every components and script window if you launch with <span style="color:red">DEBUG</span> mode
     1. You may <span style="color:red">hide</span> all the information (if you don't care) with <span style="color:red">RELEASE</span> mode
+1. Enjoy the game!
 
-# How To Listen To Events With Your Own Haptic Devices Plugin.
-## redis installation
+# How To Implement Your Own Haptic Devices Plugin and Listen To Vibration Signal Events. 
+For those haptic-developer, who wants to integrate CrossHaptics with there own devices, may follow the instructions below to implement you own haptic devices plugin. In the following sections, we provide c#(Unity) and c#(.Net framework) sample instructions. However, it's language-indepent structure, which means you may listen to the message broker(Redis) via any type of programming language that supports, theoretically. 
+## redis installation 
 [redis installation instructions](https://redis.io/docs/getting-started/installation/)
-
+## follow the non-developer section and execute the CrossHaptics Launcher
 
 # For C# Developer
+1. Create your own haptic device solution with the corresponding version(using )
 1. add project 
     1. RedisEndpoint_donetFramework if you are using .NET framework
     1. RedisEndpoint_donetCore if you are using .NET core
@@ -57,7 +71,7 @@ We presented CrossHaptics, which explores how controller vibration patterns desi
 
     <img src="https://i.imgur.com/vhFqTvv.png" width="700">
 1. install StackExchange.REDIS in NUGET manage store (project sample using Version 2.1.58)
-
+    <img src="https://imgur.com/OGJqKxN.png" width="350">
     <img src="https://i.imgur.com/tb86GxK.png" width="700">
 1. listen to the channel on local host 6379/6380(or whatever the redis port you select) as the example below
     1. channel name = "symmetrical_event"
